@@ -21,3 +21,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Responsibilities: Data
 
 
+### Manya Agarwal
+
+<img src="images/15-manya.png" width="200px">
+
+[[github](https://github.com/15-Manya)]
+
+- Role: Team Lead
+- Responsibilities: Responsible for overall project coordination.
