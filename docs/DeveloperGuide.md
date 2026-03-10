@@ -274,56 +274,148 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Tech meetup organizers managing small-to-medium events (20–150 participants) in Singapore
+* Manages multiple events per month with varying participant lists
+* Needs to perform live check-ins and track real-time attendance during events
+* Prefers desktop applications for stability and offline capability during events
+* Types fast and prefers keyboard shortcuts over mouse navigation
+* Comfortable with command-line interfaces and text-based input
+* Requires instant filtering and searching capabilities (by RSVP, attendance, team, dietary needs)
+* Manages hackathon team assignments and participant skill tracking
+* Values data accuracy and quick error correction during live events
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: 
+
+Enable tech event organizers to manage participants. Optimized for live event scenarios with keyboard-first commands for rapid check-ins, instant search, real-time filtering, and on-the-spot team assignments—all without requiring an internet connection.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​                                    | I want to …​                                                          | So that I can…​                                                    |
+|----------|-----------------------------------------------|------------------------------------------------------------------------|--------------------------------------------------------------------|
+| `* * *`  | new user                                      | see usage instructions and command examples                            | learn the app quickly and refer back when needed                   |
+| `* * *`  | meetup organizer                              | add a participant with name, contact, GitHub username, and RSVP status | build my participant list rapidly before events                    |
+| `* * *`  | meetup organizer                              | edit participant details using quick commands                          | fix typos or update information instantly during registration      |
+| `* * *`  | meetup organizer                              | delete a participant                                                   | remove cancellations, duplicates, or test entries                  |
+| `* * *`  | meetup organizer                              | search participants by name, email, or GitHub username                 | locate specific attendees in seconds during events                 |
+| `* * *`  | entrance desk organizer                       | mark a participant as checked-in with one command                      | process arrivals quickly without slowing the entry queue           |
+| `* * *`  | meetup organizer                              | list all participants with a single command                            | get a complete overview after filtering or searching               |
+| `* * *`  | meetup organizer                              | undo my last action                                                    | quickly recover from accidental deletions or edits                 |
+| `* *`    | hackathon organizer                           | assign participants to teams                                           | organize team-based events efficiently                             |
+| `* *`    | meetup organizer                              | filter participants by RSVP status (Yes/No/Pending)                    | know exactly who's confirmed and follow up with pending responses  |
+| `* *`    | meetup organizer                              | filter participants by check-in status                                 | identify no-shows and track actual attendance vs RSVPs             |
+| `* *`    | hackathon organizer                           | filter participants by team assignment                                 | view and manage team rosters quickly                               |
+| `* *`    | meetup organizer with catering responsibilities | filter participants by dietary requirements                          | ensure accurate meal planning and allergen management              |
+| `* *`    | meetup organizer                              | tag participants with custom labels                                    | categorize attendees (e.g., speaker, volunteer, VIP)               |
+| `* *`    | frequent organizer                            | import participant lists from CSV files                                | migrate data from previous tools quickly                           |
+| `* *`    | frequent organizer                            | export participant data to CSV                                         | share reports with co-organizers or sponsors                       |
+| `*`      | meetup organizer                              | view attendance statistics and RSVP conversion rates                   | analyze event turnout and improve future planning                  |
+| `*`      | hackathon organizer                           | automatically balance teams by declared skills                         | create fair teams without manual sorting                           |
+| `*`      | meetup organizer                              | see a timeline of recent actions                                       | track what changes were made during busy check-in periods          |
+| `*`      | meetup organizer with accessibility needs     | use keyboard shortcuts for all operations                              | manage events efficiently without relying on mouse input           |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+**Use Case: UC01 - Check-in a participant**
 
-**Use case: Delete a person**
+**System**: TeamEventPro
+**Actor**: Organizer
 
-**MSS**
+**MSS(Main Success Scenario):**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Organizer requests to find participants using a keyword.
+2.  TeamEventPro shows a list of matching participants.
+3.  Organizer requests to check-in a specific participant from the list using their index.
+4.  TeamEventPro updates the attendance status of the participant to "checked-in" and shows a success message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. The list of matching participants is empty.
+    * 2a1. TeamEventPro shows a message indicating no participants were found.
 
-  Use case ends.
+      Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. TeamEventPro shows an error message indicating the index is invalid.
+       
+      3a2. Organizer enters a new check-in command with a valid index.
+      
+      Steps resume from step 4.
 
-      Use case resumes at step 2.
+**Use Case: UC02 - Assign a participant to a team**
+
+**System**: TeamEventPro
+**Actor**: Organizer
+
+**MSS(Main Success Scenario):**
+
+1.  Organizer requests to find participants using a keyword.
+2.  TeamEventPro shows a list of matching participants.
+3.  Organizer requests to assign a specific participant from the list to a team using their index and the team name.
+4.  TeamEventPro updates the participant's team affiliation and shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list of matching participants is empty.
+    * 2a1. TeamEventPro shows a message indicating no participants were found.
+
+      Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. TeamEventPro shows an error message indicating the index is invalid.
+       
+      3a2. Organizer enters a new team assignment command with a valid index.
+      
+      Steps resume from step 4.
+
+* 3b. The given team name format is invalid (e.g., contains special characters).
+
+    * 3b1. TeamEventPro shows an error message detailing the team name constraints.
+
+      3b2. Organizer enters a new team assignment command with a valid team name.
+
+      Steps resume from step 4.
+
+**Use Case: UC03 - Delete a participant**
+
+**System**: TeamEventPro
+**Actor**: Organizer
+
+**MSS(Main Success Scenario):**
+
+1.  Organizer requests to find participants using a keyword.
+2.  TeamEventPro shows a list of matching participants.
+3.  Organizer requests to delete a specific participant from the list using their index.
+4.  TeamEventPro deletes the participant and shows a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list of matching participants is empty.
+    * 2a1. TeamEventPro shows a message indicating no participants were found.
+
+      Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. TeamEventPro shows an error message indicating the index is invalid.
+       
+      3a2. Organizer enters a new new delete command with a valid index.
+      
+      Steps resume from step 4.
+
+       
 
 *{More to be added}*
 
@@ -332,14 +424,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Any data entered should be saved locally to a human-readable text file automatically after every valid command execution.
+5.  The system should provide clear, user-friendly error messages when invalid command formats are entered instead of terminating or crashing.
+6.  The system should respond to any search or filtering command within 500 milliseconds even when the database is at maximum capacity (1000 persons).
+7.  The software should be delivered as a single JAR file that does not require an installer.
+8.  The system is only required to support 8-digit Singaporean phone numbers and standard international email formats for participant contact details.
 
-*{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **Participant**: A person who has registered to be part of the event.
+* **Participant Record**: The complete set of information stored about the participant.
+* **RSVP**: A participant's response indicating whether they will attend the event or not.
+* **Prefix**: A shorthand label used in commands to indicate specific fields (e.g. `n/` for name)
+* **Duplicate Participant**: A participant entry that matches another participant’s unique identifying fields.
+* **CSV (Comma-Separated Values)**: A file format used to store tabular data.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
