@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -23,17 +24,19 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Optional<Team> team;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Optional<Team> team, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, team, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.team = team;
         this.tags.addAll(tags);
     }
 
@@ -51,6 +54,13 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    /**
+     * Returns the team of this person, if present.
+     */
+    public Optional<Team> getTeam() {
+        return team;
     }
 
     /**
@@ -94,13 +104,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && team.equals(otherPerson.team)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, team, tags);
     }
 
     @Override
@@ -110,6 +121,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("team", team.orElse(null))
                 .add("tags", tags)
                 .toString();
     }

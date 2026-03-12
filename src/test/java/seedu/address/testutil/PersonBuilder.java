@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -8,6 +9,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Team;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -25,6 +27,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private Optional<Team> team;
     private Set<Tag> tags;
 
     /**
@@ -35,6 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        team = Optional.empty();
         tags = new HashSet<>();
     }
 
@@ -46,6 +50,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        team = personToCopy.getTeam();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -89,8 +94,24 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Team} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withTeam(String team) {
+        this.team = Optional.of(new Team(team));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Team} of the {@code Person} to empty.
+     */
+    public PersonBuilder withoutTeam() {
+        this.team = Optional.empty();
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, team, tags);
     }
 
 }
