@@ -16,13 +16,13 @@ public class Attendance {
     public Attendance() {
         this.status = false;
     }
-
     /**
      * Constructs an {@code Attendance} object with the specified status.
      *
      * @param status The attendance status. {@code true} if checked in,
      *               {@code false} otherwise.
      */
+
     public Attendance(boolean status) {
         this.status = status;
     }

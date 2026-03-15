@@ -42,8 +42,8 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_assign() throws Exception {
-        assertTrue(parser.parseCommand(CheckInCommand.COMMAND_WORD) instanceof CheckInCommand);
+    public void parseCommand_checkIn() throws Exception {
+        assertTrue(parser.parseCommand(CheckInCommand.COMMAND_WORD + " " + "1") instanceof CheckInCommand);
     }
 
     @Test
