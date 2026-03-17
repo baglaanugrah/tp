@@ -40,6 +40,11 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label github;
+    @FXML
+    private Label rsvpStatus;
+
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -55,5 +60,14 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        if (person.getGitHub().isPresent()) {
+            github.setText("GitHub: " + person.getGitHub().get().value);
+        } else {
+            github.setVisible(false);
+            github.setManaged(false);
+        }
+        rsvpStatus.setText("RSVP: " + person.getRsvpStatus().value);
+
     }
 }

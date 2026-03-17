@@ -12,9 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.RsvpStatus;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,6 +30,8 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String github;
+    private final String rsvpStatus;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -35,12 +39,15 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("github") String github, @JsonProperty("rsvpStatus") String rsvpStatus,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.github = github;
+        this.rsvpStatus = rsvpStatus;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -54,6 +61,8 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        github = source.getGitHub().map(g -> g.value).orElse(null);
+        rsvpStatus = source.getRsvpStatus().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -102,8 +111,14 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        final GitHub modelGitHub = (github != null && GitHub.isValidGitHub(github))
+                ? new GitHub(github) : null;
+
+        final RsvpStatus modelRsvpStatus = (rsvpStatus != null && RsvpStatus.isValidRsvpStatus(rsvpStatus))
+                ? new RsvpStatus(rsvpStatus) : new RsvpStatus("pending");
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelGitHub, modelRsvpStatus);
     }
 
 }
