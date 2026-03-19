@@ -132,6 +132,21 @@
     -fx-text-fill: #010504;
 }
 
+.status-label {
+    -fx-padding: 3 5 3 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+}
+
+.checked-in {
+    -fx-background-color: #4CAF50;
+}
+
+.not-checked-in {
+    -fx-background-color: #F44336;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }

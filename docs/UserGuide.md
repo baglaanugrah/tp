@@ -133,14 +133,14 @@ Examples:
 * `search alexyeoh@example.com lidavid` returns `Alex Yeoh` and `David Li`<br>
   ![result for 'search alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting an applicant : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified applicant from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the applicant at the specified `INDEX`.
+* The index refers to the index number shown in the displayed applicant list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:

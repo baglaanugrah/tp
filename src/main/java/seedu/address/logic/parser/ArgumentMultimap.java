@@ -75,4 +75,11 @@ public class ArgumentMultimap {
             throw new ParseException(Messages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
         }
     }
+
+    /**
+     * Counts the total number of prefixes in the argument
+    */
+    public int countPrefixes(Prefix... prefixes) {
+        return Stream.of(prefixes).map(this::getAllValues).map(List::size).reduce(0, Integer::sum);
+    }
 }

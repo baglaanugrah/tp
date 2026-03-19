@@ -89,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 person.getAddress(),
                 person.getTags(),
                 new Attendance(true),
-                person.getGitHub().get(),
+                person.getGitHub().orElse(null),
                 person.getRsvpStatus());
         setPerson(person, checkedInPerson);
     }

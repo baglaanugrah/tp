@@ -96,6 +96,7 @@ public class PersonTest {
                 + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail()
                 + ", address=" + ALICE.getAddress()
+                + ", team=" + ALICE.getTeam().orElse(null)
                 + ", tags=" + ALICE.getTags()
                 + ", status=" + ALICE.getCheckInStatus()
                 + ", github=" + ALICE.getGitHub().orElse(null)
