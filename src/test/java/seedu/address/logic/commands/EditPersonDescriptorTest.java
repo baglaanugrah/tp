@@ -70,7 +70,9 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getRsvpStatus().orElse(null) + "}";
                 + editPersonDescriptor.getAddress().orElse(null) + ", team="
                 + editPersonDescriptor.getTeam().orElse(null) + ", tags="
-                + editPersonDescriptor.getTags().orElse(null) + "}";
+                + editPersonDescriptor.getTags().orElse(null) + ", github="
+                + editPersonDescriptor.getGitHub().orElse(null) + ", rsvpStatus="
+                + editPersonDescriptor.getRsvpStatus().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

@@ -111,12 +111,8 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Optional<Team> updatedTeam = editPersonDescriptor.getTeam().orElse(personToEdit.getTeam());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        Attendance updatedStatus = personToEdit.getCheckInStatus();
-        GitHub updatedGitHub = editPersonDescriptor.getGitHub().orElse(personToEdit.getGitHub().orElse(null));
-        RsvpStatus updatedRsvpStatus = editPersonDescriptor.getRsvpStatus().orElse(personToEdit.getRsvpStatus());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTeam, updatedTags,
-                updatedStatus, updatedGitHub, updatedRsvpStatus);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTeam, updatedTags);
     }
 
     @Override
@@ -154,8 +150,6 @@ public class EditCommand extends Command {
         private Address address;
         private Optional<Team> team;
         private Set<Tag> tags;
-        private GitHub github;
-        private RsvpStatus rsvpStatus;
 
         public EditPersonDescriptor() {}
 
@@ -170,16 +164,13 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setTeam(toCopy.team);
             setTags(toCopy.tags);
-            setGitHub(toCopy.github);
-            setRsvpStatus(toCopy.rsvpStatus);
-
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, team, github, rsvpStatus);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, team, tags);
         }
 
         public void setName(Name name) {
@@ -239,23 +230,6 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setGitHub(GitHub github) {
-            this.github = github;
-        }
-
-        public Optional<GitHub> getGitHub() {
-            return Optional.ofNullable(github);
-        }
-
-        public void setRsvpStatus(RsvpStatus rsvpStatus) {
-            this.rsvpStatus = rsvpStatus;
-        }
-
-        public Optional<RsvpStatus> getRsvpStatus() {
-            return Optional.ofNullable(rsvpStatus);
-        }
-
-
         @Override
         public boolean equals(Object other) {
             if (other == this) {
@@ -272,9 +246,6 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
-                    && Objects.equals(github, otherEditPersonDescriptor.github)
-                    && Objects.equals(rsvpStatus, otherEditPersonDescriptor.rsvpStatus);
                     && Objects.equals(team, otherEditPersonDescriptor.team)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
@@ -288,10 +259,7 @@ public class EditCommand extends Command {
                     .add("address", address)
                     .add("team", team)
                     .add("tags", tags)
-                    .add("github", github)
-                    .add("rsvpStatus", rsvpStatus)
                     .toString();
         }
-
     }
 }
