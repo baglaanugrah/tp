@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * Represents an Event's date in the event book.
@@ -14,7 +15,8 @@ import java.time.format.DateTimeParseException;
 public class EventDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Event dates should be in the format YYYY-MM-DD and must be a valid calendar date.";
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd")
+            .withResolverStyle(ResolverStyle.STRICT);
     public final LocalDate date;
 
     /**
