@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,23 +23,32 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final EventBook eventBook;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventBook eventBook, ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.eventBook = new EventBook(eventBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
+    /** Creates a ModelManager with empty data. */
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
+
+    /** Creates a ModelManager without an event book (uses empty EventBook). */
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        this(addressBook, new EventBook(), userPrefs);
+    }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -150,5 +160,29 @@ public class ModelManager implements Model {
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
+
+    //=========== EventBook ====================================================================================
+
+    @Override
+    public void addEvent(Event event) {
+        eventBook.addEvent(event);
+    }
+
+    @Override
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return eventBook.hasEvent(event);
+    }
+
+    @Override
+    public ReadOnlyEventBook getEventBook() {
+        return eventBook;
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredEventList() {
+        return eventBook.getEventList();
+    }
+
 
 }
