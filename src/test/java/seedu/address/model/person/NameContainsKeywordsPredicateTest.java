@@ -88,9 +88,9 @@ public class NameContainsKeywordsPredicateTest {
         assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("9999")).test(builder.build()));
         assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("street")).test(builder.build()));
         assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("alpha")).test(builder.build()));
-        assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("friend")).test(builder.build()));
-        assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("yes")).test(builder.build()));
         assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("checked-in")).test(builder.build()));
+        assertFalse(new NameContainsKeywordsPredicate(Collections.singletonList("friend")).test(builder.build()));
+        assertFalse(new NameContainsKeywordsPredicate(Collections.singletonList("yes")).test(builder.build()));
     }
 
     @Test

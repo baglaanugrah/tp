@@ -29,7 +29,6 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     private Stream<String> searchableFields(Person person) {
-        Stream<String> tagNames = person.getTags().stream().map(tag -> tag.tagName);
         Stream<String> optionalTeam = person.getTeam().stream().map(team -> team.teamName);
         Stream<String> optionalGithub = person.getGitHub().stream().map(github -> github.value);
 
@@ -38,9 +37,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
                         person.getPhone().value,
                         person.getAddress().value,
                         person.getEmail().value,
-                        person.getRsvpStatus().value,
                         person.getCheckInStatus().toString()),
-                Stream.concat(tagNames, Stream.concat(optionalTeam, optionalGithub)));
+                Stream.concat(optionalTeam, optionalGithub));
     }
 
     private boolean containsIgnoreCase(String value, String keyword) {

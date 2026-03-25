@@ -94,7 +94,7 @@ public class PersonCard extends UiPart<Region> {
             github.setVisible(false);
             github.setManaged(false);
         }
-        setHighlightedLabelText(rsvpStatus, "RSVP: " + person.getRsvpStatus().value);
+        setPlainLabelText(rsvpStatus, "RSVP: " + person.getRsvpStatus().value);
         if (person.getCheckInStatus().getStatus()) {
             setStatusLabelText("Checked-In");
             checkInStatus.getStyleClass().add("checked-in");
@@ -108,9 +108,6 @@ public class PersonCard extends UiPart<Region> {
     private Label createTagLabel(String value) {
         Label label = new Label();
         label.setText(value);
-        if (containsAnyKeyword(value)) {
-            label.getStyleClass().add("tag-highlight-match");
-        }
         return label;
     }
 
@@ -124,6 +121,12 @@ public class PersonCard extends UiPart<Region> {
         checkInStatus.setGraphic(null);
         checkInStatus.setContentDisplay(ContentDisplay.TEXT_ONLY);
         checkInStatus.setText(value);
+    }
+
+    private void setPlainLabelText(Label label, String value) {
+        label.setGraphic(null);
+        label.setContentDisplay(ContentDisplay.TEXT_ONLY);
+        label.setText(value);
     }
 
     private TextFlow createHighlightedTextFlow(String value) {
@@ -164,10 +167,5 @@ public class PersonCard extends UiPart<Region> {
             }
             startIndex = text.indexOf(keyword, startIndex + 1);
         }
-    }
-
-    private boolean containsAnyKeyword(String value) {
-        String lowerCasedValue = value.toLowerCase(Locale.ROOT);
-        return highlightKeywords.stream().anyMatch(lowerCasedValue::contains);
     }
 }
