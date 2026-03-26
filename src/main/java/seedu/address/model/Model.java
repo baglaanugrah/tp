@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -90,4 +91,44 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Adds the given event.
+     * {@code event} must not already exist in the event book.
+     */
+    void addEvent(Event event);
+
+    /**
+     * Returns true if an event with the same identity as {@code event} exists in the event book.
+     */
+    boolean hasEvent(Event event);
+
+    /** Returns the EventBook. */
+    ReadOnlyEventBook getEventBook();
+
+    /** Returns an unmodifiable view of the filtered event list. */
+    ObservableList<Event> getFilteredEventList();
+
+    /**
+     * Returns true if the app context is currently set to the participants (address book)
+     * of a selected event.
+     */
+    default boolean isInEventParticipantsMode() {
+        return false;
+    }
+
+    /**
+     * Enters the context of the given event so that address-book commands apply to its participants.
+     */
+    default void enterEvent(Event event) {
+        // Default is a no-op for test stubs.
+    }
+
+    /**
+     * Leaves the participants context and returns to the events list context.
+     */
+    default void leaveEvent() {
+        // Default is a no-op for test stubs.
+    }
+
 }

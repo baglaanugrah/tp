@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.GitHub;
@@ -168,6 +170,36 @@ public class ParserUtil {
             throw new ParseException(RsvpStatus.MESSAGE_CONSTRAINTS);
         }
         return new RsvpStatus(trimmed);
+    }
+
+    /**
+     * Parses a {@code String name} into an {@code EventName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static EventName parseEventName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmed = name.trim();
+        if (!EventName.isValidEventName(trimmed)) {
+            throw new ParseException(EventName.MESSAGE_CONSTRAINTS);
+        }
+        return new EventName(trimmed);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code EventDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static EventDate parseEventDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmed = date.trim();
+        if (!EventDate.isValidEventDate(trimmed)) {
+            throw new ParseException(EventDate.MESSAGE_CONSTRAINTS);
+        }
+        return new EventDate(trimmed);
     }
 
 }

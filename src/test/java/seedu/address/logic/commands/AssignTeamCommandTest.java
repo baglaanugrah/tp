@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.enterDefaultEvent;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -24,6 +26,11 @@ import seedu.address.model.person.Team;
 public class AssignTeamCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @BeforeEach
+    public void setUp() {
+        enterDefaultEvent(model);
+    }
 
     @Test
     public void execute_validIndex_success() {
@@ -43,6 +50,7 @@ public class AssignTeamCommandTest {
                 personToAssign.getRsvpStatus());
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        enterDefaultEvent(expectedModel);
         expectedModel.setPerson(personToAssign, assignedPerson);
         expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 

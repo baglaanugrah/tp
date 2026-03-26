@@ -60,6 +60,9 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.isInEventParticipantsMode()) {
+            throw new CommandException(Messages.MESSAGE_ENTER_EVENT_FIRST);
+        }
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

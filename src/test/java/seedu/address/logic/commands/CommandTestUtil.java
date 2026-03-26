@@ -14,11 +14,15 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventName;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -138,6 +142,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Puts the model into "event participants" mode using a dummy event whose participants are
+     * initialized from the model's current address book.
+     */
+    public static void enterDefaultEvent(Model model) {
+        Event event = new Event(
+                new EventName("Default Event"),
+                new EventDate("2026-01-01"),
+                Optional.empty(),
+                Optional.empty());
+        event.setParticipants(model.getAddressBook());
+        model.enterEvent(event);
     }
 
 }
