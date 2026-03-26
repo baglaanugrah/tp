@@ -47,6 +47,10 @@ public class AddEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.isInEventParticipantsMode()) {
+            throw new CommandException("Leave the event view to add an event.");
+        }
+
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }

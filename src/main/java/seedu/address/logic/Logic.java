@@ -37,6 +37,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of events */
     ObservableList<Event> getFilteredEventList();
 
+    /** Returns true if the app is currently showing the participants (address book) mode. */
+    boolean isInEventParticipantsMode();
+
     /**
      * Returns the user prefs' address book file path.
      */

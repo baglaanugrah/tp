@@ -91,6 +91,11 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
+        public boolean isInEventParticipantsMode() {
+            return true;
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }

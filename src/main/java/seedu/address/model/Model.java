@@ -109,4 +109,26 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered event list. */
     ObservableList<Event> getFilteredEventList();
 
+    /**
+     * Returns true if the app context is currently set to the participants (address book)
+     * of a selected event.
+     */
+    default boolean isInEventParticipantsMode() {
+        return false;
+    }
+
+    /**
+     * Enters the context of the given event so that address-book commands apply to its participants.
+     */
+    default void enterEvent(Event event) {
+        // Default is a no-op for test stubs.
+    }
+
+    /**
+     * Leaves the participants context and returns to the events list context.
+     */
+    default void leaveEvent() {
+        // Default is a no-op for test stubs.
+    }
+
 }

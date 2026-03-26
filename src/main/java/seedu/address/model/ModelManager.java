@@ -22,8 +22,9 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersons;
     private final EventBook eventBook;
+    private Event activeEvent;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -89,42 +90,62 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+        requireNonNull(addressBook);
+        if (activeEvent != null) {
+            activeEvent.setParticipants(addressBook);
+        } else {
+            this.addressBook.resetData(addressBook);
+        }
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return activeEvent != null ? activeEvent.getParticipants() : addressBook;
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return addressBook.hasPerson(person);
+        return activeEvent != null ? activeEvent.hasPerson(person) : addressBook.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        if (activeEvent != null) {
+            activeEvent.deleteParticipant(target);
+        } else {
+            addressBook.removePerson(target);
+        }
     }
 
     @Override
     public void addPerson(Person person) {
-        addressBook.addPerson(person);
+        if (activeEvent != null) {
+            activeEvent.addParticipant(person);
+        } else {
+            addressBook.addPerson(person);
+        }
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void checkInPerson(Person person) {
         requireNonNull(person);
-        addressBook.checkInPerson(person);
+        if (activeEvent != null) {
+            activeEvent.checkInParticipant(person);
+        } else {
+            addressBook.checkInPerson(person);
+        }
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+        if (activeEvent != null) {
+            activeEvent.setParticipant(target, editedPerson);
+        } else {
+            addressBook.setPerson(target, editedPerson);
+        }
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -142,6 +163,26 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean isInEventParticipantsMode() {
+        return activeEvent != null;
+    }
+
+    @Override
+    public void enterEvent(Event event) {
+        requireNonNull(event);
+        activeEvent = event;
+        filteredPersons = new FilteredList<>(activeEvent.getParticipants().getPersonList());
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void leaveEvent() {
+        activeEvent = null;
+        filteredPersons = new FilteredList<>(addressBook.getPersonList());
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override

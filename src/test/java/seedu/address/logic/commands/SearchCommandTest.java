@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.enterDefaultEvent;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.ELLE;
 import static seedu.address.testutil.TypicalPersons.FIONA;
@@ -13,6 +14,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.AddressBook;
@@ -29,6 +31,12 @@ import seedu.address.testutil.PersonBuilder;
 public class SearchCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @BeforeEach
+    public void setUp() {
+        enterDefaultEvent(model);
+        enterDefaultEvent(expectedModel);
+    }
 
     @Test
     public void equals() {
@@ -98,6 +106,8 @@ public class SearchCommandTest {
 
         Model localModel = new ModelManager(addressBook, new UserPrefs());
         Model expectedLocalModel = new ModelManager(addressBook, new UserPrefs());
+        enterDefaultEvent(localModel);
+        enterDefaultEvent(expectedLocalModel);
         NameContainsKeywordsPredicate predicate = preparePredicate("ALEXYEOH@EXAMPLE.COM LIDAVID");
         SearchCommand command = new SearchCommand(predicate);
 

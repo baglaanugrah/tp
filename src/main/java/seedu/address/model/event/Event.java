@@ -8,6 +8,7 @@ import java.util.Optional;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
 
 /**
  * Represents an Event in the event book.
@@ -51,6 +52,32 @@ public class Event {
 
     public ReadOnlyAddressBook getParticipants() {
         return participants;
+    }
+
+    //============= Participant (AddressBook) operations ==================
+
+    public boolean hasPerson(Person person) {
+        return participants.hasPerson(person);
+    }
+
+    public void addParticipant(Person person) {
+        participants.addPerson(person);
+    }
+
+    public void deleteParticipant(Person target) {
+        participants.removePerson(target);
+    }
+
+    public void checkInParticipant(Person person) {
+        participants.checkInPerson(person);
+    }
+
+    public void setParticipant(Person target, Person editedPerson) {
+        participants.setPerson(target, editedPerson);
+    }
+
+    public void setParticipants(ReadOnlyAddressBook participants) {
+        this.participants.resetData(participants);
     }
 
     public boolean isSameEvent(Event other) {

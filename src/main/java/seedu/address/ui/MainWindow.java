@@ -128,6 +128,23 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        updateModeView();
+    }
+
+    private void updateModeView() {
+        boolean inParticipantsMode = logic.isInEventParticipantsMode();
+
+        personListPanelPlaceholder.setVisible(inParticipantsMode);
+        personListPanelPlaceholder.setManaged(inParticipantsMode);
+
+        eventListPanelPlaceholder.setVisible(!inParticipantsMode);
+        eventListPanelPlaceholder.setManaged(!inParticipantsMode);
+
+        // Person list data backing changes when switching events.
+        if (personListPanel != null) {
+            personListPanel.setPersonList(logic.getFilteredPersonList());
+        }
     }
 
     /**
@@ -184,6 +201,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            updateModeView();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

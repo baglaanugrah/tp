@@ -34,6 +34,9 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.isInEventParticipantsMode()) {
+            throw new CommandException(Messages.MESSAGE_ENTER_EVENT_FIRST);
+        }
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
