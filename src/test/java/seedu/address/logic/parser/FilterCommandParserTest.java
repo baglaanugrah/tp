@@ -10,8 +10,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FilterCommand;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.PersonMatchesFilterPredicate;
 import seedu.address.model.person.RsvpStatus;
+import seedu.address.model.person.Team;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,7 +41,8 @@ public class FilterCommandParserTest {
     @Test
     public void parse_validRsvpYes_returnsFilterCommand() {
         PersonMatchesFilterPredicate expectedPredicate =
-                new PersonMatchesFilterPredicate(Optional.of(new RsvpStatus("yes")), Set.of());
+                new PersonMatchesFilterPredicate(Optional.of(new RsvpStatus("yes")), Set.of(),
+                        Optional.empty(), Optional.empty());
         FilterCommand expectedCommand = new FilterCommand(expectedPredicate);
         assertParseSuccess(parser, " r/yes", expectedCommand);
     }
@@ -50,7 +53,8 @@ public class FilterCommandParserTest {
     @Test
     public void parse_validRsvpNo_returnsFilterCommand() {
         PersonMatchesFilterPredicate expectedPredicate =
-                new PersonMatchesFilterPredicate(Optional.of(new RsvpStatus("no")), Set.of());
+                new PersonMatchesFilterPredicate(Optional.of(new RsvpStatus("no")), Set.of(),
+                        Optional.empty(), Optional.empty());
         FilterCommand expectedCommand = new FilterCommand(expectedPredicate);
         assertParseSuccess(parser, " r/no", expectedCommand);
     }
@@ -62,9 +66,45 @@ public class FilterCommandParserTest {
     public void parse_validTag_returnsFilterCommand() {
         Set<Tag> tags = Set.of(new Tag("python"));
         PersonMatchesFilterPredicate expectedPredicate =
-                new PersonMatchesFilterPredicate(Optional.empty(), tags);
+                new PersonMatchesFilterPredicate(Optional.empty(), tags, Optional.empty(), Optional.empty());
         FilterCommand expectedCommand = new FilterCommand(expectedPredicate);
         assertParseSuccess(parser, " t/python", expectedCommand);
+    }
+
+    /**
+     * Valid case: single team criterion.
+     */
+    @Test
+    public void parse_validTeam_returnsFilterCommand() {
+        PersonMatchesFilterPredicate expectedPredicate =
+                new PersonMatchesFilterPredicate(Optional.empty(), Set.of(),
+                        Optional.of(new Team("Alpha")), Optional.empty());
+        FilterCommand expectedCommand = new FilterCommand(expectedPredicate);
+        assertParseSuccess(parser, " team/Alpha", expectedCommand);
+    }
+
+    /**
+     * Valid case: single check-in criterion with value "yes".
+     */
+    @Test
+    public void parse_validCheckinYes_returnsFilterCommand() {
+        PersonMatchesFilterPredicate expectedPredicate =
+                new PersonMatchesFilterPredicate(Optional.empty(), Set.of(), Optional.empty(),
+                        Optional.of(new Attendance(true)));
+        FilterCommand expectedCommand = new FilterCommand(expectedPredicate);
+        assertParseSuccess(parser, " checkin/yes", expectedCommand);
+    }
+
+    /**
+     * Valid case: single check-in criterion with value "no".
+     */
+    @Test
+    public void parse_validCheckinNo_returnsFilterCommand() {
+        PersonMatchesFilterPredicate expectedPredicate =
+                new PersonMatchesFilterPredicate(Optional.empty(), Set.of(), Optional.empty(),
+                        Optional.of(new Attendance(false)));
+        FilterCommand expectedCommand = new FilterCommand(expectedPredicate);
+        assertParseSuccess(parser, " checkin/no", expectedCommand);
     }
 
     /**
@@ -95,6 +135,15 @@ public class FilterCommandParserTest {
     }
 
     /**
+     * Invalid case: both RSVP and check-in prefixes supplied.
+     */
+    @Test
+    public void parse_bothRsvpAndCheckin_throwsParseException() {
+        assertParseFailure(parser, " r/yes checkin/no",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    /**
      * Invalid case: only unsupported prefixes used (no r/ or t/).
      */
     @Test
@@ -110,6 +159,15 @@ public class FilterCommandParserTest {
     public void parse_validTagWithInvalidPrefix_throwsParseException() {
         assertParseFailure(parser, " t/python n/Alice",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * Invalid case: unsupported check-in value.
+     */
+    @Test
+    public void parse_invalidCheckinValue_throwsParseException() {
+        assertParseFailure(parser, " checkin/maybe",
+                Attendance.MESSAGE_CONSTRAINTS);
     }
 }
 

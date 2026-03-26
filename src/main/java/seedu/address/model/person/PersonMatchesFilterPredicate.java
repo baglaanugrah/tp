@@ -5,8 +5,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.Attendance;
-import seedu.address.model.person.Team;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,7 +24,10 @@ public class PersonMatchesFilterPredicate implements Predicate<Person> {
      * @param teamFilter Optional team to match; empty means no team filter.
      * @param checkinFilter Optional check-in status to match; empty means no check-in filter.
      */
-    public PersonMatchesFilterPredicate(Optional<RsvpStatus> rsvpFilter, Set<Tag> tagFilter, Optional<Team> teamFilter, Optional<Attendance> checkinFilter) {
+    public PersonMatchesFilterPredicate(Optional<RsvpStatus> rsvpFilter,
+                                        Set<Tag> tagFilter,
+                                        Optional<Team> teamFilter,
+                                        Optional<Attendance> checkinFilter) {
         this.rsvpFilter = rsvpFilter != null ? rsvpFilter : Optional.empty();
         this.tagFilter = tagFilter != null ? tagFilter : Set.of();
         this.teamFilter = teamFilter != null ? teamFilter : Optional.empty();
