@@ -202,5 +202,22 @@ public class ParserUtil {
         }
         return new EventDate(trimmed);
     }
-
+    
+    /**
+     * Parses a {@code String attendance} into a {@code Attendance}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code attendance} is invalid.
+     */
+    public static Attendance parseAttendance(String attendance) throws ParseException {
+        requireNonNull(attendance);
+        String trimmed = attendance.trim();
+        if (trimmed.equalsIgnoreCase("yes")) {
+            return new Attendance(true);
+        } else if (trimmed.equalsIgnoreCase("no")) {
+            return new Attendance(false);
+        } else {
+            throw new ParseException(Attendance.MESSAGE_CONSTRAINTS);
+        }
+    }
 }
