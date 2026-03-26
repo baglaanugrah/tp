@@ -16,6 +16,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.statistics.StatisticsCalculator;
+import seedu.address.logic.statistics.StatisticsSummary;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsPanel statisticsPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -187,6 +190,21 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /** Shows the current statistics summary. */
+    private void handleShowStatistics() {
+        StatisticsCalculator calculator = new StatisticsCalculator();
+        StatisticsSummary summary = calculator.calculate(logic.getAddressBook().getPersonList());
+        statisticsPanel.update(summary);
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+    }
+
+    /** Shows the person list panel. */
+    private void handleShowPersonList() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -210,6 +228,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowStatistics()) {
+                handleShowStatistics();
+            } else {
+                handleShowPersonList();
             }
 
             return commandResult;

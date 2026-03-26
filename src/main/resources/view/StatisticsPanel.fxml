@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <padding>
+    <Insets top="20" right="20" bottom="20" left="20" />
+  </padding>
+  <Label text="Event Summary" styleClass="stats-main-heading" />
+  <TextArea fx:id="eventSummaryText" editable="false" wrapText="true" styleClass="result-display" prefRowCount="4" />
+
+  <Label text="Engagement Summary" styleClass="stats-main-heading" />
+  <Label text="RSVP Summary" styleClass="stats-sub-heading" />
+  <TextArea fx:id="rsvpSummaryText" editable="false" wrapText="true" styleClass="result-display" prefRowCount="3" />
+
+  <Label text="Checkin Summary" styleClass="stats-sub-heading" />
+  <TextArea fx:id="checkinSummaryText" editable="false" wrapText="true" styleClass="result-display" prefRowCount="2" />
+
+  <Label text="Other Statistics (Tag Distribution)" styleClass="stats-main-heading" />
+  <TextArea fx:id="tagDistributionText" editable="false" wrapText="true" styleClass="result-display" VBox.vgrow="ALWAYS" />
+</VBox>
