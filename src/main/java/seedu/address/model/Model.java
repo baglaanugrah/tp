@@ -71,7 +71,7 @@ public interface Model {
 
     /**
      * Marks the attendance for the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must already exist in the address book.
      */
     void checkInPerson(Person person);
 

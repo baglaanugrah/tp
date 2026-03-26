@@ -10,11 +10,13 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.RsvpStatus;
+import seedu.address.model.person.Team;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -125,6 +127,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String team} into a {@code Team}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code team} is invalid.
+     */
+    public static Team parseTeam(String team) throws ParseException {
+        requireNonNull(team);
+        String trimmedTeam = team.trim();
+        if (!Team.isValidTeam(trimmedTeam)) {
+            throw new ParseException(Team.MESSAGE_CONSTRAINTS);
+        }
+        return new Team(trimmedTeam);
+    }
+
+    /**
      * Parses a {@code String github} into a {@code GitHub}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -154,4 +171,21 @@ public class ParserUtil {
         return new RsvpStatus(trimmed);
     }
 
+    /**
+     * Parses a {@code String attendance} into a {@code Attendance}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code attendance} is invalid.
+     */
+    public static Attendance parseAttendance(String attendance) throws ParseException {
+        requireNonNull(attendance);
+        String trimmed = attendance.trim();
+        if (trimmed.equalsIgnoreCase("yes")) {
+            return new Attendance(true);
+        } else if (trimmed.equalsIgnoreCase("no")) {
+            return new Attendance(false);
+        } else {
+            throw new ParseException(Attendance.MESSAGE_CONSTRAINTS);
+        }
+    }
 }

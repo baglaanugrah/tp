@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -30,7 +31,7 @@ public class CheckInCommand extends Command {
     private final Index index;
 
     /**
-     * Creates a checkInCommand to check-in the specified {@code Person}
+     * Creates a checkInCommand to check in the specified {@code Person}
      */
     public CheckInCommand(Index index) {
         requireAllNonNull(index);
@@ -64,5 +65,12 @@ public class CheckInCommand extends Command {
 
         CheckInCommand e = (CheckInCommand) other;
         return index.equals(e.index);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetIndex", index)
+                .toString();
     }
 }

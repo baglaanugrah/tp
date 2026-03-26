@@ -24,28 +24,54 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Optional<Team> team;
     private final Attendance status;
     private final Set<Tag> tags = new HashSet<>();
     private final GitHub github;
     private final RsvpStatus rsvpStatus;
 
     /**
-     * Every field must be present and not null.
+     * Constructor with default values for optional fields.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, tags, new Attendance(), null, new RsvpStatus("pending"));
+        this(name, phone, email, address, Optional.empty(), tags, null, new RsvpStatus("pending"));
+    }
+
+    /**
+     * Constructor with team field.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Optional<Team> team, Set<Tag> tags) {
+        this(name, phone, email, address, team, tags, new Attendance(), null, new RsvpStatus("pending"));
     }
 
     /**
      * Every field must be present and not null.
      */
+    public Person(Name name, Phone phone, Email email, Address address, Optional<Team> team, Set<Tag> tags,
+                  GitHub github, RsvpStatus rsvpStatus) {
+        this(name, phone, email, address, team, tags, new Attendance(), github, rsvpStatus);
+    }
+
+    /**
+     * Constructor for compatibility when only check-in status is provided.
+     */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Attendance status,
                   GitHub github, RsvpStatus rsvpStatus) {
+        this(name, phone, email, address, Optional.empty(), tags, status, github, rsvpStatus);
+    }
+
+    /**
+     * Full constructor with all fields.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Optional<Team> team,
+                  Set<Tag> tags, Attendance status, GitHub github, RsvpStatus rsvpStatus) {
         requireAllNonNull(name, phone, email, address, tags, status, rsvpStatus);
+        requireAllNonNull(team);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.team = team;
         this.tags.addAll(tags);
         this.status = status;
         this.github = github;
@@ -70,6 +96,13 @@ public class Person {
 
     public Attendance getCheckInStatus() {
         return status;
+    }
+
+    /**
+     * Returns the team of this person, if present.
+     */
+    public Optional<Team> getTeam() {
+        return team;
     }
 
     /**
@@ -121,6 +154,7 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && team.equals(otherPerson.team)
                 && tags.equals(otherPerson.tags)
                 && status.equals(otherPerson.status)
                 && Objects.equals(github, otherPerson.github)
@@ -130,7 +164,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, status, github, rsvpStatus);
+        return Objects.hash(name, phone, email, address, team, tags, status, github, rsvpStatus);
     }
 
     @Override
@@ -140,6 +174,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("team", team.orElse(null))
                 .add("tags", tags)
                 .add("status", status)
                 .add("github", github)
