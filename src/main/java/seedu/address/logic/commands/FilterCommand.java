@@ -18,9 +18,11 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Filters the person list using only one criterion (either RSVP or tags, not both).\n"
             + "  By RSVP: " + COMMAND_WORD + " r/yes\n"
-            + "  By tags: " + COMMAND_WORD + " t/python";
+            + "  By tags: " + COMMAND_WORD + " t/python\n"
+            + "  By team: " + COMMAND_WORD + " team/Alpha\n"
+            + "  By checkin status: " + COMMAND_WORD + " checkin/yes";
 
-    public static final String INVALID_PREFIX = "Invalid prefix. Please use either r/ or t/.";
+    public static final String INVALID_PREFIX = "Invalid prefix. Please use either r/, t/, checkin/ or team/.";
 
     private final PersonMatchesFilterPredicate predicate;
 

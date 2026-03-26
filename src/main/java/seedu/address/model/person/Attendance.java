@@ -6,6 +6,8 @@ package seedu.address.model.person;
  */
 public class Attendance {
 
+    public static final String MESSAGE_CONSTRAINTS = "Attendance status must be 'yes' or 'no'.";
+
     /** Indicates whether the person has checked in. */
     private boolean status;
 
