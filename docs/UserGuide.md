@@ -174,6 +174,39 @@ Format: `list`
 
 - You must enter an event first using `enter event INDEX`.
 
+### Importing applicants from CSV : `import`
+
+Imports applicants from a CSV file into the currently entered event.
+
+Format: `import FILE_PATH`
+
+- You must enter an event first using `enter event INDEX`.
+- The file path must point to a `.csv` file.
+- Required CSV headers: `name,phone,email,address`.
+- Optional CSV headers: `team,github,rsvpStatus,tags,checkinStatus`.
+- Duplicate applicants are skipped.
+- Invalid rows are skipped and reported in the command result.
+- `checkinStatus` accepts `yes` or `no`.
+
+Example:
+
+- `import data/participants.csv`
+
+### Exporting applicants to CSV : `export`
+
+Exports all applicants in the currently entered event to a CSV file.
+
+Format: `export [FILE_PATH]`
+
+- You must enter an event first using `enter event INDEX`.
+- If `FILE_PATH` is omitted, default path is `data/exports/participants.csv`.
+- If the target file already exists, a timestamped file is created automatically.
+
+Examples:
+
+- `export`
+- `export data/exports/hacknight.csv`
+
 ### Editing an applicant : `edit`
 
 Edits an existing applicant in the address book. (Renamed from `modify`.) Updates an applicant using their list index; you can change one or more fields in a single command.
@@ -339,7 +372,9 @@ Furthermore, certain edits can cause TeamEventPro to behave in unexpected ways (
 | **Delete**  | `delete INDEX` e.g., `delete 3`                                                                                                                                                           |
 | **Edit**    | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tm/TEAM] [g/GITHUB] [r/RSVP] [t/TAG]…​` e.g., `edit 2 n/James Lee e/jameslee@example.com`                                           |
 | **Filter**  | `filter r/RSVP` or `filter t/TAG` e.g., `filter r/yes`, `filter t/Python`                                                                                                                 |
+| **Import**  | `import FILE_PATH` e.g., `import data/participants.csv`                                                                                                                                     |
 | **List**    | `list`                                                                                                                                                                                    |
+| **Export**  | `export [FILE_PATH]` e.g., `export`, `export data/exports/hacknight.csv`                                                                                                                  |
 | **Search**  | `search KEYWORD [MORE_KEYWORDS]` e.g., `search James Jake`                                                                                                                                |
 | **Help**    | `help`                                                                                                                                                                                    |
 | **Exit**    | `exit`                                                                                                                                                                                    |
