@@ -25,6 +25,12 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Updates the currently filtered list using live search keywords.
+     * This bypasses command execution and does not write to storage.
+     */
+    void updateLiveSearch(String queryText);
+
+    /**
      * Returns the AddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
