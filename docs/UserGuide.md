@@ -8,15 +8,15 @@ pageNav: 3
 
 # TeamEventPro User Guide
 
-TeamEventPro is a **desktop** app for managing tech meetup attendees, 
-optimized for use via a Command Line Interface (CLI) while still having the benefits 
+TeamEventPro is a **desktop** app for managing tech meetup attendees,
+optimized for use via a Command Line Interface (CLI) while still having the benefits
 of a Graphical User Interface (GUI). If you can type fast, TeamEventPro can get 
 your event management tasks done faster than traditional GUI apps.
 ---
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed on your computer.  
+1. Ensure you have Java `17` or above installed on your computer.
 
   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 2. Download the latest `.jar` file from [Releases](https://github.com/AY2526S2-CS2103T-W11-1/tp/releases).

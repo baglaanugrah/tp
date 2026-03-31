@@ -63,5 +63,4 @@ deactivate FilterCommand
 
 [<--LogicManager : r
 deactivate LogicManager
-
 @enduml

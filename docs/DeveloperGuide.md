@@ -284,7 +284,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Manages hackathon team assignments and participant skill tracking
 * Values data accuracy and quick error correction during live events
 
-**Value proposition**: 
+**Value proposition**:
 
 Enable tech event organizers to manage participants. Optimized for live event scenarios with keyboard-first commands for rapid check-ins, instant search, real-time filtering, and on-the-spot team assignments—all without requiring an internet connection.
 
@@ -344,9 +344,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The given index is invalid.
 
     * 3a1. TeamEventPro shows an error message indicating the index is invalid.
-       
+
       3a2. Organizer enters a new check-in command with a valid index.
-      
+  
       Steps resume from step 4.
 
 **Use Case: UC02 - Assign a participant to a team**
@@ -373,9 +373,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The given index is invalid.
 
     * 3a1. TeamEventPro shows an error message indicating the index is invalid.
-       
+
       3a2. Organizer enters a new team assignment command with a valid index.
-      
+
       Steps resume from step 4.
 
 * 3b. The given team name format is invalid (e.g., contains special characters).
@@ -410,12 +410,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The given index is invalid.
 
     * 3a1. TeamEventPro shows an error message indicating the index is invalid.
-       
-      3a2. Organizer enters a new new delete command with a valid index.
-      
-      Steps resume from step 4.
 
-       
+      3a2. Organizer enters a new new delete command with a valid index.
+
+      Steps resume from step 4.
 
 *{More to be added}*
 
