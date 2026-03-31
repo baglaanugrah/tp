@@ -186,7 +186,22 @@ Format: `import FILE_PATH`
 - Optional CSV headers: `team,github,rsvpStatus,tags,checkinStatus`.
 - Duplicate applicants are skipped.
 - Invalid rows are skipped and reported in the command result.
-- `checkinStatus` accepts `yes` or `no`.
+- CSV field validation uses the same rules as applicant commands where applicable:
+  - `name`, `phone`, `email`, `address`, `team`, `github`, `rsvpStatus`, `tags`: follow the same validation as fields used in [`add`](#adding-an-applicant-add) and [`edit`](#editing-an-applicant--edit).
+  - `rsvpStatus`: valid values are `yes`, `no`, `pending` (same as [`add`](#adding-an-applicant-add) and [`filter`](#filtering-applicants-by-rsvp-or-tag--filter)).
+  - `team`: must be alphanumeric and at most 15 characters (same as [`add`](#adding-an-applicant-add) and [`assign`](#assigning-a-team--assign)).
+  - `tags`: use `;` as the separator in CSV, for example `Python;ML`.
+  - `checkinStatus` valid values:
+    - Checked in: `yes`, `checked-in`, `true`
+    - Not checked in: `no`, `not checked-in`, `false`
+
+Sample CSV:
+
+```csv
+name,phone,email,address,team,github,rsvpStatus,tags,checkinStatus
+John Doe,98765432,johnd@example.com,"311, Clementi Ave 2, #02-25",Development,johndoe,yes,Python;ML,checked-in
+Jane Tan,91234567,jane@example.com,5 Sports Hub Ave,,,no,,false
+```
 
 Example:
 
