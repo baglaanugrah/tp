@@ -241,7 +241,7 @@ public class ParserUtil {
     public static Attendance parseAttendance(String attendance) throws ParseException {
         requireNonNull(attendance);
         String trimmed = attendance.trim().toLowerCase();
-        
+
         if (trimmed.equals("yes") || trimmed.equals("checked-in") || trimmed.equals("true")) {
             return new Attendance(true);
         } else if (trimmed.equals("no") || trimmed.equals("not checked-in") || trimmed.equals("false")) {

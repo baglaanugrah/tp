@@ -30,7 +30,7 @@ public class CsvUtilTest {
                 + System.lineSeparator();
         Files.writeString(csvPath, csvContent);
 
-        CsvUtil.CsvImportResult result = CsvUtil.readPersonsFromCsv(csvPath);
+        CsvImportResult result = CsvUtil.readPersonsFromCsv(csvPath);
 
         assertEquals(2, result.getPersons().size());
         assertTrue(result.getPersons().get(0).getCheckInStatus().getStatus());
