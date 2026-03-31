@@ -3,10 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.Messages;
-import seedu.address.logic.statistics.StatisticsCalculator;
-import seedu.address.logic.statistics.StatisticsSummary;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 
@@ -18,7 +16,7 @@ public class StatisticsCommand extends Command {
     public static final String COMMAND_WORD = "statistics";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays a summary of participant statistics.\n"
+            + ": Displays a summary of the event's statistics.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Showing the event's statistics summary.";
