@@ -28,12 +28,20 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStatistics, boolean clearPersonToView) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStatistics,
+            boolean clearPersonToView) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showStatistics = showStatistics;
         this.clearPersonToView = clearPersonToView;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields and clears person-to-view by default.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStatistics) {
+        this(feedbackToUser, showHelp, exit, showStatistics, true);
     }
 
     /**

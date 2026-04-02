@@ -29,7 +29,7 @@ public class StatisticsCommand extends Command {
             throw new CommandException(Messages.MESSAGE_ENTER_EVENT_FIRST);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS, false, false, true, false);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 
     @Override
