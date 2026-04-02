@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,7 +26,7 @@ public class ModelManager implements Model {
     private FilteredList<Person> filteredPersons;
     private final EventBook eventBook;
     private Event activeEvent;
-
+    private Person personToView;
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -245,5 +246,16 @@ public class ModelManager implements Model {
         return eventBook.getEventList();
     }
 
+    //=========== View Person ==================================================================================
 
+    @Override
+    public Optional<Person> getPersonToView() {
+        return Optional.ofNullable(personToView);
+    }
+
+    @Override
+    public void setPersonToView(Optional<Person> person) {
+        requireNonNull(person);
+        this.personToView = person.orElse(null);
+    }
 }

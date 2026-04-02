@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -148,4 +149,17 @@ public interface Model {
         // Default is a no-op for test stubs.
     }
 
+    /**
+     * Returns the person to view.
+     */
+    default Optional<Person> getPersonToView() {
+        return Optional.empty();
+    }
+
+    /**
+     * Sets the person to view.
+     */
+    default void setPersonToView(Optional<Person> person) {
+        // Default is a no-op for test stubs.
+    }
 }
