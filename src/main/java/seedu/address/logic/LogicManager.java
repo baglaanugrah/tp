@@ -51,6 +51,9 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
+        if (commandResult.canClearPersonToView()) {
+            model.setPersonToView(Optional.empty());
+        }
 
         try {
             storage.saveEventBook(model.getEventBook());
