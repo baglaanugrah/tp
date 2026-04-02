@@ -4,14 +4,19 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Shows the details of a person identified by the index in the displayed person list.
+ */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ":Shows the details of the applicant identified by the index number used in the displayed applicant list.\n"
+            + ": Shows the details of the applicant identified by the index number used in the displayed "
+            + "applicant list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -25,12 +30,11 @@ public class ViewCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-    requireNonNull(model);
-    if (!model.isInEventParticipantsMode()) {
-        throw new CommandException(seedu.address.logic.Messages.MESSAGE_ENTER_EVENT_FIRST);
-    }
-    return new CommandResult(
-            "View command works.");
+        requireNonNull(model);
+        if (!model.isInEventParticipantsMode()) {
+            throw new CommandException(Messages.MESSAGE_ENTER_EVENT_FIRST);
+        }
+        return new CommandResult("View command works.");
     }
 
     @Override

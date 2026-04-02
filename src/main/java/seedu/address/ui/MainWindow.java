@@ -15,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.statistics.StatisticsCalculator;
@@ -39,6 +40,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsPanel statisticsPanel;
+    private PersonDetailPanel personDetailPanel;
+    private boolean showPersonDetailPane = false;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -130,6 +133,10 @@ public class MainWindow extends UiPart<Stage> {
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
+        personDetailPanel = new PersonDetailPanel();
+        // By default, keep the existing right pane content.
+        // The pane swap happens in updateModeView() when `view` is executed.
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -146,12 +153,21 @@ public class MainWindow extends UiPart<Stage> {
 
     private void updateModeView() {
         boolean inParticipantsMode = logic.isInEventParticipantsMode();
+        boolean showDetail = inParticipantsMode && showPersonDetailPane;
 
         personListPanelPlaceholder.setVisible(inParticipantsMode);
         personListPanelPlaceholder.setManaged(inParticipantsMode);
 
-        eventListPanelPlaceholder.setVisible(!inParticipantsMode);
-        eventListPanelPlaceholder.setManaged(!inParticipantsMode);
+        eventListPanelPlaceholder.setVisible(showDetail || !inParticipantsMode);
+        eventListPanelPlaceholder.setManaged(showDetail || !inParticipantsMode);
+
+        if (showDetail) {
+            eventListPanelPlaceholder.getChildren().setAll(personDetailPanel.getRoot());
+        } else {
+            // Ensure we restore the event list when not showing person detail.
+            // This matters when switching between participants mode and events mode.
+            eventListPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
+        }
 
         // Person list data backing changes when switching events.
         if (personListPanel != null) {
@@ -240,6 +256,7 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            showPersonDetailPane = commandText.trim().startsWith(ViewCommand.COMMAND_WORD);
             updateModeView();
 
             if (commandResult.isShowHelp()) {
