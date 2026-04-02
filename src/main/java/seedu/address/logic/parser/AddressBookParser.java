@@ -100,10 +100,11 @@ public class AddressBookParser {
             return new EnterEventCommandParser().parse(arguments);
 
         case LeaveEventCommand.COMMAND_WORD:
-            return new LeaveEventCommand();
+            return new LeaveEventCommandParser().parse(arguments);
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
+
         case CheckInCommand.COMMAND_WORD:
             return new CheckInCommandParser().parse(arguments);
 
