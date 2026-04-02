@@ -1,12 +1,17 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,6 +30,7 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Person person;
+    private final List<String> highlightKeywords;
 
     @FXML
     private HBox cardPane;
@@ -54,37 +60,112 @@ public class PersonCard extends UiPart<Region> {
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
     public PersonCard(Person person, int displayedIndex) {
+        this(person, displayedIndex, List.of());
+    }
+
+    /**
+     * Creates a {@code PersonCode} with highlighted matching text segments.
+     */
+    public PersonCard(Person person, int displayedIndex, List<String> highlightKeywords) {
         super(FXML);
         this.person = person;
+        this.highlightKeywords = highlightKeywords.stream()
+                .map(keyword -> keyword.toLowerCase(Locale.ROOT))
+                .filter(keyword -> !keyword.isBlank())
+                .toList();
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        setHighlightedLabelText(name, person.getName().fullName);
+        setHighlightedLabelText(phone, person.getPhone().value);
+        setHighlightedLabelText(address, person.getAddress().value);
+        setHighlightedLabelText(email, person.getEmail().value);
         if (person.getTeam().isPresent()) {
-            team.setText("Team: " + person.getTeam().get().teamName);
+            setHighlightedLabelText(team, "Team: " + person.getTeam().get().teamName);
         } else {
             team.setVisible(false);
             team.setManaged(false);
         }
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .forEach(tag -> tags.getChildren().add(createTagLabel(tag.tagName)));
 
         if (person.getGitHub().isPresent()) {
-            github.setText("GitHub: " + person.getGitHub().get().value);
+            setHighlightedLabelText(github, "GitHub: " + person.getGitHub().get().value);
         } else {
             github.setVisible(false);
             github.setManaged(false);
         }
-        rsvpStatus.setText("RSVP: " + person.getRsvpStatus().value);
+        setPlainLabelText(rsvpStatus, "RSVP: " + person.getRsvpStatus().value);
         if (person.getCheckInStatus().getStatus()) {
-            checkInStatus.setText("Checked-In");
+            setStatusLabelText("Checked-In");
             checkInStatus.getStyleClass().add("checked-in");
         } else {
-            checkInStatus.setText("Not Checked-In");
+            setStatusLabelText("Not Checked-In");
             checkInStatus.getStyleClass().add("not-checked-in");
         }
 
+    }
+
+    private Label createTagLabel(String value) {
+        Label label = new Label();
+        label.setText(value);
+        return label;
+    }
+
+    private void setHighlightedLabelText(Label label, String value) {
+        label.setText("");
+        label.setGraphic(createHighlightedTextFlow(value));
+        label.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+    }
+
+    private void setStatusLabelText(String value) {
+        checkInStatus.setGraphic(null);
+        checkInStatus.setContentDisplay(ContentDisplay.TEXT_ONLY);
+        checkInStatus.setText(value);
+    }
+
+    private void setPlainLabelText(Label label, String value) {
+        label.setGraphic(null);
+        label.setContentDisplay(ContentDisplay.TEXT_ONLY);
+        label.setText(value);
+    }
+
+    private TextFlow createHighlightedTextFlow(String value) {
+        TextFlow textFlow = new TextFlow();
+        if (value.isEmpty()) {
+            return textFlow;
+        }
+
+        boolean[] highlightedPositions = new boolean[value.length()];
+        String lowerCasedValue = value.toLowerCase(Locale.ROOT);
+        for (String keyword : highlightKeywords) {
+            markHighlightedSegments(lowerCasedValue, keyword, highlightedPositions);
+        }
+
+        int segmentStart = 0;
+        while (segmentStart < value.length()) {
+            boolean highlighted = highlightedPositions[segmentStart];
+            int segmentEnd = segmentStart + 1;
+            while (segmentEnd < value.length() && highlightedPositions[segmentEnd] == highlighted) {
+                segmentEnd++;
+            }
+
+            Text text = new Text(value.substring(segmentStart, segmentEnd));
+            text.getStyleClass().add(highlighted ? "highlight-match" : "highlight-normal");
+            textFlow.getChildren().add(text);
+            segmentStart = segmentEnd;
+        }
+
+        return textFlow;
+    }
+
+    private void markHighlightedSegments(String text, String keyword, boolean[] highlightedPositions) {
+        int startIndex = text.indexOf(keyword);
+        while (startIndex >= 0) {
+            int endIndex = startIndex + keyword.length();
+            for (int i = startIndex; i < endIndex; i++) {
+                highlightedPositions[i] = true;
+            }
+            startIndex = text.indexOf(keyword, startIndex + 1);
+        }
     }
 }

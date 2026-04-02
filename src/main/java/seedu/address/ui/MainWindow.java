@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.statistics.StatisticsCalculator;
@@ -26,6 +29,7 @@ import seedu.address.logic.statistics.StatisticsSummary;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String SEARCH_COMMAND_PREFIX = SearchCommand.COMMAND_WORD + " ";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -129,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::handleCommandTextChanged);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         updateModeView();
@@ -148,6 +152,24 @@ public class MainWindow extends UiPart<Stage> {
         if (personListPanel != null) {
             personListPanel.setPersonList(logic.getFilteredPersonList());
         }
+    }
+
+    private void handleCommandTextChanged(String commandText) {
+        if (!commandText.startsWith(SEARCH_COMMAND_PREFIX)) {
+            personListPanel.setHighlightKeywords(List.of());
+            return;
+        }
+
+        String query = commandText.substring(SEARCH_COMMAND_PREFIX.length());
+        List<String> keywords = parseKeywords(query);
+        logic.updateLiveSearch(query);
+        personListPanel.setHighlightKeywords(keywords);
+    }
+
+    private List<String> parseKeywords(String query) {
+        return Arrays.stream(query.trim().split("\\s+"))
+                .filter(keyword -> !keyword.isBlank())
+                .toList();
     }
 
     /**

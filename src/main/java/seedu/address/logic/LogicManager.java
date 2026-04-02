@@ -3,6 +3,8 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -16,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -65,6 +68,20 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
+    }
+
+    @Override
+    public void updateLiveSearch(String queryText) {
+        List<String> keywords = Arrays.stream(queryText.trim().split("\\s+"))
+                .filter(keyword -> !keyword.isBlank())
+                .toList();
+
+        if (keywords.isEmpty()) {
+            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+            return;
+        }
+
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(keywords));
     }
 
     @Override

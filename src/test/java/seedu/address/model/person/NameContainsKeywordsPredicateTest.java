@@ -68,10 +68,29 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone and address, but do not match name, email, or GitHub username
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "Main", "Street"));
+        // Non-visible-field text does not match
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("nomatch", "zzz"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
+    }
+
+    @Test
+    public void test_otherVisibleFieldsContainKeywords_returnsTrue() {
+        PersonBuilder builder = new PersonBuilder()
+                .withName("Alice Bob")
+                .withPhone("99998888")
+                .withAddress("Main Street")
+                .withTeam("alpha")
+                .withTags("friend")
+                .withRsvpStatus("yes")
+                .withStatus(new Attendance(true));
+
+        assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("9999")).test(builder.build()));
+        assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("street")).test(builder.build()));
+        assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("alpha")).test(builder.build()));
+        assertTrue(new NameContainsKeywordsPredicate(Collections.singletonList("checked-in")).test(builder.build()));
+        assertFalse(new NameContainsKeywordsPredicate(Collections.singletonList("friend")).test(builder.build()));
+        assertFalse(new NameContainsKeywordsPredicate(Collections.singletonList("yes")).test(builder.build()));
     }
 
     @Test

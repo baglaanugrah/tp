@@ -386,3 +386,17 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#tags .label.tag-highlight-match {
+    -fx-text-fill: #ffd166;
+    -fx-font-weight: bold;
+}
+
+.highlight-normal {
+    -fx-fill: white;
+}
+
+.highlight-match {
+    -fx-fill: #ffd166;
+    -fx-font-weight: bold;
+}
