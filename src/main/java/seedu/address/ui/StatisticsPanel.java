@@ -2,6 +2,9 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -151,7 +154,7 @@ public class StatisticsPanel extends UiPart<Region> {
         barChart.setPadding(new Insets(0, 20, 0, 0));
 
         BarChart.Series<Number, String> series = new BarChart.Series<>();
-        java.util.List<Double> finalValues = new java.util.ArrayList<>();
+        List<Double> finalValues = new ArrayList<>();
         summary.getTagCounts().forEach((tag, count) -> {
             series.getData().add(new BarChart.Data<>(0.0, tag));
             finalValues.add(count.doubleValue());

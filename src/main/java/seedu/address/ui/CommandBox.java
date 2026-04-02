@@ -17,6 +17,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final CommandTextListener commandTextListener;
+    private boolean isExecutingCommand;
 
     @FXML
     private TextField commandTextField;
@@ -24,11 +26,17 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
      */
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, CommandTextListener commandTextListener) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        this.commandTextListener = commandTextListener;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty().addListener((unused1, unused2, newValue) -> {
+            setStyleToDefault();
+            if (!isExecutingCommand) {
+                commandTextListener.onTextChanged(newValue);
+            }
+        });
     }
 
     /**
@@ -42,10 +50,13 @@ public class CommandBox extends UiPart<Region> {
         }
 
         try {
+            isExecutingCommand = true;
             commandExecutor.execute(commandText);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
+        } finally {
+            isExecutingCommand = false;
         }
     }
 
@@ -80,6 +91,17 @@ public class CommandBox extends UiPart<Region> {
          * @see seedu.address.logic.Logic#execute(String)
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
+    }
+
+    /**
+     * Represents a function that handles command text changes.
+     */
+    @FunctionalInterface
+    public interface CommandTextListener {
+        /**
+         * Handles per-keystroke command text changes.
+         */
+        void onTextChanged(String commandText);
     }
 
 }

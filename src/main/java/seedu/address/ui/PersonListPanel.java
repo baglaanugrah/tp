@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ public class PersonListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Person> personListView;
+    private List<String> highlightKeywords = List.of();
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
@@ -27,6 +29,11 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+    }
+
+    void setHighlightKeywords(List<String> keywords) {
+        highlightKeywords = List.copyOf(keywords);
+        personListView.refresh();
     }
 
     /**
@@ -48,7 +55,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(person, getIndex() + 1, highlightKeywords).getRoot());
             }
         }
     }
