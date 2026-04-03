@@ -161,6 +161,15 @@
     -fx-text-fill: white;
 }
 
+/* Must follow .list-cell .label — higher specificity so badge text colors are not forced to white */
+.list-cell .label.checked-in {
+    -fx-text-fill: #4ade80;
+}
+
+.list-cell .label.not-checked-in {
+    -fx-text-fill: #f87171;
+}
+
 /* ========== Person / event card text ========== */
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
@@ -176,18 +185,26 @@
 
 /* ========== Status chips (check-in on list cards) ========== */
 .status-label {
-    -fx-padding: 3 5 3 5;
-    -fx-background-radius: 5;
-    -fx-text-fill: white;
+    -fx-padding: 3 10 3 10;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
     -fx-font-size: 10px;
 }
 
 .checked-in {
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #14532d;
+    -fx-border-color: #166534;
+    -fx-border-width: 1;
+    -fx-border-radius: 999;
+    -fx-text-fill: #4ade80;
 }
 
 .not-checked-in {
-    -fx-background-color: #F44336;
+    -fx-background-color: #450a0a;
+    -fx-border-color: #7f1d1d;
+    -fx-border-width: 1;
+    -fx-border-radius: 999;
+    -fx-text-fill: #f87171;
 }
 
 /* ========== Layout chrome — command area, panes, status ========== */
@@ -205,16 +222,19 @@
     -fx-background-color: #0f1117;
 }
 
+/* Command feedback line (ResultDisplay Label) — terminal-style green */
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-font-family: "SF Mono", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12pt;
+    -fx-text-fill: #4ade80;
+    -fx-padding: 2 0 2 0;
 }
 
-/* Legacy: forces readable text on result label; do not remove without testing ResultDisplay */
-.result-display .label {
-    -fx-text-fill: black !important;
+.command-prompt {
+    -fx-font-family: "SF Mono", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12pt;
+    -fx-text-fill: #a5b4fc;
 }
 
 .status-bar .label {
@@ -385,24 +405,30 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-color: #2a2d36;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-background-radius: 4;
+    -fx-border-color: #252830;
+    -fx-border-radius: 4;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-padding: 6 10 6 10;
+    -fx-font-family: "SF Mono", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12pt;
+    -fx-text-fill: #e5e7eb;
+    -fx-prompt-text-fill: #6b7280;
+    -fx-pref-height: 30;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+#commandTextField:focused {
+    -fx-border-color: #3f4754;
+    -fx-background-color: #2a2d36;
 }
 
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}
-
-#resultDisplay .content,
-.result-display .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
 }
 
 #tags {
