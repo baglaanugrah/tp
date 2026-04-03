@@ -13,6 +13,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AssignTeamCommand;
+import seedu.address.logic.commands.EnterEventCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.event.Event;
@@ -24,12 +29,6 @@ import seedu.address.storage.JsonEventBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
-
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddEventCommand;
-import seedu.address.logic.commands.AssignTeamCommand;
-import seedu.address.logic.commands.EnterEventCommand;
-import seedu.address.logic.commands.SearchCommand;
 
 public class OnboardingCoordinatorTest {
 

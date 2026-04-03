@@ -21,7 +21,8 @@ import seedu.address.model.person.Person;
 
 /**
  * Tracks first-launch onboarding steps and produces supplemental UI messages.
- * Command matching uses the first word of input (same convention as {@link seedu.address.logic.parser.AddressBookParser}).
+ * Command matching uses the first word of input (same convention as
+ * {@link seedu.address.logic.parser.AddressBookParser}).
  * Messages are personalised using the user's events and participants from {@link Logic} when available.
  */
 public class OnboardingCoordinator {
