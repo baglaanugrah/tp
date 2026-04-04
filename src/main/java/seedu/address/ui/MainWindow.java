@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -64,9 +63,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statisticsPanelPlaceholder;
-
-    @FXML
-    private SplitPane mainSplitPane;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -228,20 +224,21 @@ public class MainWindow extends UiPart<Stage> {
         statisticsPanel.update(summary);
         statisticsPanelPlaceholder.getChildren().setAll(statisticsPanel.getRoot());
 
-        // Show statistics full-page, hide split view.
-        mainSplitPane.setVisible(false);
-        mainSplitPane.setManaged(false);
+        // Show statistics full-page; hide events/participants lists (same content area as StackPane siblings).
+        eventListPanelPlaceholder.setVisible(false);
+        eventListPanelPlaceholder.setManaged(false);
+        personListPanelPlaceholder.setVisible(false);
+        personListPanelPlaceholder.setManaged(false);
         statisticsPanelPlaceholder.setVisible(true);
         statisticsPanelPlaceholder.setManaged(true);
     }
 
     /** Shows the person list panel. */
     private void handleShowPersonList() {
-        // Restore split view and hide full-page statistics.
         statisticsPanelPlaceholder.setVisible(false);
         statisticsPanelPlaceholder.setManaged(false);
-        mainSplitPane.setVisible(true);
-        mainSplitPane.setManaged(true);
+
+        updateModeView();
 
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

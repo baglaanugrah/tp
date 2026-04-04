@@ -202,7 +202,7 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
-    //=========== EventBook ====================================================================================
+    //============================================ EventBook ===========================================================
 
     @Override
     public void addEvent(Event event) {

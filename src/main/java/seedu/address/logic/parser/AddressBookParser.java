@@ -91,6 +91,9 @@ public class AddressBookParser {
             return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExitCommand.MESSAGE_USAGE));
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
@@ -100,10 +103,11 @@ public class AddressBookParser {
             return new EnterEventCommandParser().parse(arguments);
 
         case LeaveEventCommand.COMMAND_WORD:
-            return new LeaveEventCommand();
+            return new LeaveEventCommandParser().parse(arguments);
 
         case FilterCommand.COMMAND_WORD:
             return new FilterCommandParser().parse(arguments);
+
         case CheckInCommand.COMMAND_WORD:
             return new CheckInCommandParser().parse(arguments);
 
