@@ -190,15 +190,15 @@ public class ImportCommand extends Command {
         }
 
         ImportCommand otherImportCommand = (ImportCommand) other;
-    return filePath.equals(otherImportCommand.filePath)
-        && shouldListCsvFiles == otherImportCommand.shouldListCsvFiles;
+        return filePath.equals(otherImportCommand.filePath)
+                && shouldListCsvFiles == otherImportCommand.shouldListCsvFiles;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("filePath", filePath)
-            .add("shouldListCsvFiles", shouldListCsvFiles)
+                .add("shouldListCsvFiles", shouldListCsvFiles)
                 .toString();
     }
 }
