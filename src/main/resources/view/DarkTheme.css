@@ -163,6 +163,89 @@
     -fx-background-color: #F44336;
 }
 
+/* ==============================
+ * Person detail "chips" (view)
+ * ============================== */
+.person-detail-pane .label {
+    -fx-text-fill: white;
+}
+
+.person-detail-pane {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+}
+
+.detail-name {
+    -fx-text-fill: #f4f8ff;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+}
+
+.detail-chip {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 5 14 5 14;
+    -fx-background-insets: 0;
+    -fx-background-radius: 999;
+    -fx-border-radius: 999;
+    -fx-border-width: 1;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+}
+
+.rsvp-yes {
+    -fx-background-color: #4CAF50;
+}
+
+.rsvp-no {
+    -fx-background-color: #F44336;
+}
+
+.rsvp-pending {
+    -fx-background-color: #c99700;
+}
+
+.attendance-yes {
+    -fx-background-color: #4CAF50;
+}
+
+.attendance-no {
+    -fx-background-color: #F44336;
+}
+
+.tag-pill {
+    -fx-background-color: #1E3A8A;
+}
+
+.team-pill {
+    -fx-background-color: #6b46c1;
+}
+
+.person-detail-pane .detail-key {
+    -fx-font-size: 14px !important;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-weight: 700;
+    -fx-text-fill: #89abd9 !important;
+}
+
+.detail-value {
+    -fx-font-size: 17px;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f2f6ff;
+}
+
+.detail-divider {
+    -fx-pref-height: 1;
+    -fx-min-height: 1;
+    -fx-max-height: 1;
+    -fx-background-color: #4d5561;
+    -fx-opacity: 0.65;
+    -fx-padding: 8 0 8 0;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
