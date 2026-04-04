@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -53,6 +54,9 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
+        if (commandResult.canClearPersonToView()) {
+            model.setPersonToView(Optional.empty());
+        }
 
         try {
             storage.saveEventBook(model.getEventBook());
@@ -112,5 +116,10 @@ public class LogicManager implements Logic {
     @Override
     public boolean isInEventParticipantsMode() {
         return model.isInEventParticipantsMode();
+    }
+
+    @Override
+    public Optional<Person> getPersonToView() {
+        return model.getPersonToView();
     }
 }

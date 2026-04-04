@@ -22,14 +22,26 @@ public class CommandResult {
     /** The application should show the current statistics summary. */
     private final boolean showStatistics;
 
+    /** The application should clear the person to view. */
+    private final boolean clearPersonToView;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStatistics) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStatistics,
+            boolean clearPersonToView) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showStatistics = showStatistics;
+        this.clearPersonToView = clearPersonToView;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields and clears person-to-view by default.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStatistics) {
+        this(feedbackToUser, showHelp, exit, showStatistics, true);
     }
 
     /**
@@ -37,7 +49,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, true);
     }
 
     public String getFeedbackToUser() {
@@ -56,6 +68,10 @@ public class CommandResult {
         return showStatistics;
     }
 
+    public boolean canClearPersonToView() {
+        return clearPersonToView;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -71,12 +87,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && showStatistics == otherCommandResult.showStatistics;
+                && showStatistics == otherCommandResult.showStatistics
+                && clearPersonToView == otherCommandResult.clearPersonToView;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showStatistics);
+        return Objects.hash(feedbackToUser, showHelp, exit, showStatistics, clearPersonToView);
     }
 
     @Override
@@ -86,6 +103,7 @@ public class CommandResult {
                 .add("showHelp", showHelp)
                 .add("exit", exit)
                 .add("showStatistics", showStatistics)
+                .add("clearPersonToView", clearPersonToView)
                 .toString();
     }
 

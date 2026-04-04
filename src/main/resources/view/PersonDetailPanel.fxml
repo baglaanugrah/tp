@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" styleClass="person-detail-pane">
+    <padding>
+        <Insets top="24" right="26" bottom="24" left="26"/>
+    </padding>
+    <VBox spacing="16" styleClass="detail-sections">
+        <Label fx:id="nameValue" styleClass="detail-name"/>
+
+        <Region styleClass="detail-divider"/>
+
+        <GridPane hgap="14" vgap="12">
+            <columnConstraints>
+                <ColumnConstraints minWidth="96" prefWidth="96"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="Phone" styleClass="detail-key" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label fx:id="phoneValue" styleClass="detail-value" wrapText="true"
+                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Email" styleClass="detail-key" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Label fx:id="emailValue" styleClass="detail-value" wrapText="true"
+                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+            <Label text="Address" styleClass="detail-key" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Label fx:id="addressValue" styleClass="detail-value" wrapText="true"
+                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+            <Label text="GitHub" styleClass="detail-key" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Label fx:id="githubValue" styleClass="detail-value" wrapText="true"
+                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+            <Label text="RSVP" styleClass="detail-key" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <Label fx:id="rsvpValue" styleClass="detail-chip" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+            <Label text="Attendance" styleClass="detail-key" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <Label fx:id="attendanceValue" styleClass="detail-chip" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+            <Label fx:id="teamKeyLabel" text="Team" styleClass="detail-key"
+                   GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+            <Label fx:id="teamValue" styleClass="detail-chip"
+                   GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+            <Label text="Tags" styleClass="detail-key" GridPane.columnIndex="0" GridPane.rowIndex="7"
+                   GridPane.columnSpan="2"/>
+            <FlowPane fx:id="tagsFlow" hgap="10" vgap="10" GridPane.columnIndex="0" GridPane.rowIndex="8"
+                      GridPane.columnSpan="2"/>
+        </GridPane>
+    </VBox>
+</VBox>
+

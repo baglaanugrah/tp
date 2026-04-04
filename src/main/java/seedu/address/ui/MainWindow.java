@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.statistics.StatisticsCalculator;
 import seedu.address.logic.statistics.StatisticsSummary;
+import seedu.address.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -43,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsPanel statisticsPanel;
+    private PersonDetailPanel personDetailPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -132,6 +134,10 @@ public class MainWindow extends UiPart<Stage> {
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
         eventListPanelPlaceholder.getChildren().add(eventListPanel.getRoot());
 
+        personDetailPanel = new PersonDetailPanel();
+        // By default, keep the existing right pane content.
+        // The pane swap happens in updateModeView() when `view` is executed.
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -148,12 +154,23 @@ public class MainWindow extends UiPart<Stage> {
 
     private void updateModeView() {
         boolean inParticipantsMode = logic.isInEventParticipantsMode();
+        boolean showDetail = inParticipantsMode && logic.getPersonToView().isPresent();
 
         personListPanelPlaceholder.setVisible(inParticipantsMode);
         personListPanelPlaceholder.setManaged(inParticipantsMode);
 
-        eventListPanelPlaceholder.setVisible(!inParticipantsMode);
-        eventListPanelPlaceholder.setManaged(!inParticipantsMode);
+        eventListPanelPlaceholder.setVisible(showDetail || !inParticipantsMode);
+        eventListPanelPlaceholder.setManaged(showDetail || !inParticipantsMode);
+
+        if (showDetail) {
+            eventListPanelPlaceholder.getChildren().setAll(personDetailPanel.getRoot());
+            Person person = logic.getPersonToView().get();
+            personDetailPanel.setPerson(person);
+        } else {
+            // Ensure we restore the event list when not showing person detail.
+            // This matters when switching between participants mode and events mode.
+            eventListPanelPlaceholder.getChildren().setAll(eventListPanel.getRoot());
+        }
 
         // Person list data backing changes when switching events.
         if (personListPanel != null) {
