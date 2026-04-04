@@ -1,10 +1,13 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -14,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.statistics.StatisticsCalculator;
@@ -26,6 +30,7 @@ import seedu.address.logic.statistics.StatisticsSummary;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String SEARCH_COMMAND_PREFIX = SearchCommand.COMMAND_WORD + " ";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -56,6 +61,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane eventListPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticsPanelPlaceholder;
+
+    @FXML
+    private SplitPane mainSplitPane;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -129,8 +140,10 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::handleCommandTextChanged);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        statisticsPanel = new StatisticsPanel();
 
         updateModeView();
     }
@@ -148,6 +161,24 @@ public class MainWindow extends UiPart<Stage> {
         if (personListPanel != null) {
             personListPanel.setPersonList(logic.getFilteredPersonList());
         }
+    }
+
+    private void handleCommandTextChanged(String commandText) {
+        if (!commandText.startsWith(SEARCH_COMMAND_PREFIX)) {
+            personListPanel.setHighlightKeywords(List.of());
+            return;
+        }
+
+        String query = commandText.substring(SEARCH_COMMAND_PREFIX.length());
+        List<String> keywords = parseKeywords(query);
+        logic.updateLiveSearch(query);
+        personListPanel.setHighlightKeywords(keywords);
+    }
+
+    private List<String> parseKeywords(String query) {
+        return Arrays.stream(query.trim().split("\\s+"))
+                .filter(keyword -> !keyword.isBlank())
+                .toList();
     }
 
     /**
@@ -195,12 +226,23 @@ public class MainWindow extends UiPart<Stage> {
         StatisticsCalculator calculator = new StatisticsCalculator();
         StatisticsSummary summary = calculator.calculate(logic.getAddressBook().getPersonList());
         statisticsPanel.update(summary);
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
+        statisticsPanelPlaceholder.getChildren().setAll(statisticsPanel.getRoot());
+
+        // Show statistics full-page, hide split view.
+        mainSplitPane.setVisible(false);
+        mainSplitPane.setManaged(false);
+        statisticsPanelPlaceholder.setVisible(true);
+        statisticsPanelPlaceholder.setManaged(true);
     }
 
     /** Shows the person list panel. */
     private void handleShowPersonList() {
+        // Restore split view and hide full-page statistics.
+        statisticsPanelPlaceholder.setVisible(false);
+        statisticsPanelPlaceholder.setManaged(false);
+        mainSplitPane.setVisible(true);
+        mainSplitPane.setManaged(true);
+
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }

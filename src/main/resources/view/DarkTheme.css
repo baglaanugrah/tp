@@ -25,17 +25,17 @@
 }
 
 .stats-main-heading {
-    -fx-font-size: 18pt;
-    -fx-font-family: "Segoe UI Bold";
-    -fx-underline: true;
+    -fx-font-size: 24pt;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: 700;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .stats-sub-heading {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-underline: true;
+    -fx-font-size: 18pt;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: 600;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
@@ -373,6 +373,153 @@
     -fx-background-radius: 0;
 }
 
+.stats-scroll-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.stats-scroll-pane > .viewport {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.stats-summary-card {
+    -fx-padding: 18 22 18 22;
+    -fx-min-height: 130px;
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-radius: 8;
+}
+
+.stats-summary-title {
+    -fx-text-fill: #b0bec5;
+    -fx-font-size: 15px;
+    -fx-font-family: "Segoe UI";
+}
+
+.stats-summary-value {
+    -fx-text-fill: white;
+    -fx-font-size: 34px;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.donut-chart {
+    -fx-pie-label-visible: false;
+    -fx-background-color: transparent;
+}
+
+.donut-chart .chart-pie {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.donut-chart .chart-pie-label-line {
+    -fx-stroke: transparent;
+}
+
+.donut-chart .default-color0.chart-pie {
+    /* Yes / Checked in */
+    -fx-pie-color: #4fc3f7;
+}
+
+.donut-chart .default-color1.chart-pie {
+    /* No / Not checked in */
+    -fx-pie-color: #1e3a8a;
+}
+
+.donut-chart .default-color2.chart-pie {
+    /* Pending */
+    -fx-pie-color: #b39ddb;
+}
+
+.legend-yes {
+    -fx-fill: #4fc3f7;
+}
+
+.legend-no {
+    -fx-fill: #1e3a8a;
+}
+
+.legend-pending {
+    -fx-fill: #b39ddb;
+}
+
+.stats-legend-label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-padding: 1 0 1 0;
+}
+
+/* Tag bar chart styling */
+
+.bar-chart {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.bar-chart .chart-plot-background {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.bar-chart .axis .tick-label {
+    -fx-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.bar-chart .axis-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.bar-chart .axis {
+    -fx-tick-label-fill: white;
+}
+
+.bar-chart .chart-horizontal-grid-lines,
+.bar-chart .chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.bar-chart .chart-bar {
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+}
+
+.tag-bar-0 {
+    -fx-bar-fill: #4fc3f7;
+    -fx-fill: #4fc3f7;
+}
+
+.tag-bar-1 {
+    -fx-bar-fill: #b39ddb;
+    -fx-fill: #b39ddb;
+}
+
+.tag-bar-2 {
+    -fx-bar-fill: #1e3a8a;
+    -fx-fill: #1e3a8a;
+}
+
+.tag-bar-3 {
+    -fx-bar-fill: #80cbc4;
+    -fx-fill: #80cbc4;
+}
+
+.tag-bar-4 {
+    -fx-bar-fill: #ffb74d;
+    -fx-fill: #ffb74d;
+}
+
+.tag-percent-label {
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.donut-center-label {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -385,4 +532,18 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#tags .label.tag-highlight-match {
+    -fx-text-fill: #ffd166;
+    -fx-font-weight: bold;
+}
+
+.highlight-normal {
+    -fx-fill: white;
+}
+
+.highlight-match {
+    -fx-fill: #ffd166;
+    -fx-font-weight: bold;
 }

@@ -2,23 +2,64 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <padding>
-    <Insets top="20" right="20" bottom="20" left="20" />
-  </padding>
-  <Label text="Event Summary" styleClass="stats-main-heading" />
-  <TextArea fx:id="eventSummaryText" editable="false" wrapText="true" styleClass="result-display" prefRowCount="4" />
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fitToWidth="true" pannable="true" styleClass="stats-scroll-pane">
+  <content>
+    <VBox spacing="28">
+      <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+      </padding>
+      <HBox spacing="16" fillHeight="true">
+        <VBox spacing="4" styleClass="stats-summary-card" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+          <Label text="Total participants" styleClass="stats-summary-title" />
+          <Label fx:id="totalParticipantsValue" styleClass="stats-summary-value" />
+        </VBox>
+        <VBox spacing="4" styleClass="stats-summary-card" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+          <Label text="RSVP" styleClass="stats-summary-title" />
+          <Label fx:id="rsvpYesValue" styleClass="stats-summary-value" />
+        </VBox>
+        <VBox spacing="4" styleClass="stats-summary-card" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+          <Label text="Check-ins" styleClass="stats-summary-title" />
+          <Label fx:id="checkinsValue" styleClass="stats-summary-value" />
+        </VBox>
+        <VBox spacing="4" styleClass="stats-summary-card" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+          <Label text="Teams" styleClass="stats-summary-title" />
+          <Label fx:id="teamsValue" styleClass="stats-summary-value" />
+        </VBox>
+      </HBox>
 
-  <Label text="Engagement Summary" styleClass="stats-main-heading" />
-  <Label text="RSVP Summary" styleClass="stats-sub-heading" />
-  <TextArea fx:id="rsvpSummaryText" editable="false" wrapText="true" styleClass="result-display" prefRowCount="3" />
+      <Label text="Engagement Summary" styleClass="stats-main-heading" />
 
-  <Label text="Checkin Summary" styleClass="stats-sub-heading" />
-  <TextArea fx:id="checkinSummaryText" editable="false" wrapText="true" styleClass="result-display" prefRowCount="2" />
+      <HBox spacing="32">
+        <VBox spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity" minWidth="0">
+          <Label text="RSVP Summary" styleClass="stats-sub-heading" />
+          <HBox spacing="24" alignment="CENTER">
+            <HBox fx:id="rsvpChartPlaceholder" spacing="10" />
+            <VBox fx:id="rsvpLegendBox" spacing="12" alignment="CENTER_LEFT" />
+          </HBox>
+        </VBox>
 
-  <Label text="Other Statistics (Tag Distribution)" styleClass="stats-main-heading" />
-  <TextArea fx:id="tagDistributionText" editable="false" wrapText="true" styleClass="result-display" VBox.vgrow="ALWAYS" />
-</VBox>
+        <VBox spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity" minWidth="0">
+          <Label text="Check-in Summary" styleClass="stats-sub-heading" />
+          <HBox spacing="24" alignment="CENTER">
+            <HBox fx:id="checkinChartPlaceholder" spacing="10" />
+            <VBox fx:id="checkinLegendBox" spacing="12" alignment="CENTER_LEFT" />
+          </HBox>
+        </VBox>
+      </HBox>
+
+      <Label text="Other Statistics (Skill Distribution)" styleClass="stats-main-heading" />
+      <HBox fx:id="tagChartPlaceholder" spacing="10" HBox.hgrow="ALWAYS" fillHeight="true" />
+      <VBox fx:id="tagLegendBox" spacing="12" />
+      <TextArea fx:id="tagDistributionText" editable="false" wrapText="true"
+                styleClass="result-display" VBox.vgrow="ALWAYS" />
+    </VBox>
+  </content>
+</ScrollPane>

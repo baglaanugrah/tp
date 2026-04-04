@@ -3,12 +3,12 @@ package seedu.address.model.person;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s name, email, or GitHub username matches any of the keywords given.
+ * Tests that a {@code Person}'s visible fields match any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
@@ -21,23 +21,24 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         return keywords.stream()
                 .filter(keyword -> !keyword.trim().isEmpty())
-                .anyMatch(keyword -> matchesName(person, keyword)
-                        || matchesEmail(person, keyword)
-                        || matchesGitHub(person, keyword));
+                .anyMatch(keyword -> matchesAnyVisibleField(person, keyword));
     }
 
-    private boolean matchesName(Person person, String keyword) {
-        return StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword);
+    private boolean matchesAnyVisibleField(Person person, String keyword) {
+        return searchableFields(person).anyMatch(field -> containsIgnoreCase(field, keyword));
     }
 
-    private boolean matchesEmail(Person person, String keyword) {
-        return containsIgnoreCase(person.getEmail().value, keyword);
-    }
+    private Stream<String> searchableFields(Person person) {
+        Stream<String> optionalTeam = person.getTeam().stream().map(team -> team.teamName);
+        Stream<String> optionalGithub = person.getGitHub().stream().map(github -> github.value);
 
-    private boolean matchesGitHub(Person person, String keyword) {
-        return person.getGitHub()
-                .map(github -> containsIgnoreCase(github.value, keyword))
-                .orElse(false);
+        return Stream.concat(Stream.of(
+                        person.getName().fullName,
+                        person.getPhone().value,
+                        person.getAddress().value,
+                        person.getEmail().value,
+                        person.getCheckInStatus().toString()),
+                Stream.concat(optionalTeam, optionalGithub));
     }
 
     private boolean containsIgnoreCase(String value, String keyword) {

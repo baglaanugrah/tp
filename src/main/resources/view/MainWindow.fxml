@@ -46,20 +46,26 @@
           </padding>
         </StackPane>
 
-        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.5">
-          <VBox styleClass="pane-with-border" minWidth="340">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-          <VBox styleClass="pane-with-border" minWidth="340">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-        </SplitPane>
+        <StackPane VBox.vgrow="ALWAYS">
+          <SplitPane fx:id="mainSplitPane" VBox.vgrow="ALWAYS" dividerPositions="0.5">
+            <VBox styleClass="pane-with-border" minWidth="340">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <VBox styleClass="pane-with-border" minWidth="340">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="eventListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </SplitPane>
+
+          <!-- Full-page statistics view; initially hidden -->
+          <StackPane fx:id="statisticsPanelPlaceholder" VBox.vgrow="ALWAYS"
+                     visible="false" managed="false" />
+        </StackPane>
 
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

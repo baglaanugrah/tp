@@ -10,6 +10,8 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.enterDefaultEvent;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -89,6 +91,32 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void updateLiveSearch_matchesKeyword_updatesFilteredList() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        logic = new LogicManager(model, new StorageManager(
+                new JsonAddressBookStorage(temporaryFolder.resolve("liveSearchAddressBook.json")),
+                new JsonEventBookStorage(temporaryFolder.resolve("liveSearchEventBook.json")),
+                new JsonUserPrefsStorage(temporaryFolder.resolve("liveSearchUserPrefs.json"))));
+
+        logic.updateLiveSearch("johnd@example.com");
+        assertEquals(1, logic.getFilteredPersonList().size());
+        assertEquals(BENSON, logic.getFilteredPersonList().get(0));
+    }
+
+    @Test
+    public void updateLiveSearch_emptyQuery_resetsFilteredList() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        logic = new LogicManager(model, new StorageManager(
+                new JsonAddressBookStorage(temporaryFolder.resolve("liveSearchResetAddressBook.json")),
+                new JsonEventBookStorage(temporaryFolder.resolve("liveSearchResetEventBook.json")),
+                new JsonUserPrefsStorage(temporaryFolder.resolve("liveSearchResetUserPrefs.json"))));
+
+        logic.updateLiveSearch("Benson");
+        logic.updateLiveSearch("   ");
+        assertEquals(getTypicalAddressBook().getPersonList().size(), logic.getFilteredPersonList().size());
     }
 
     /**
