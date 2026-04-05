@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private boolean onboardingCompleted;
     private ThemeMode themeMode = ThemeMode.DARK;
 
     /**
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setOnboardingCompleted(newUserPrefs.isOnboardingCompleted());
         setThemeMode(newUserPrefs.getThemeMode());
     }
 
@@ -57,6 +59,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    @Override
+    public boolean isOnboardingCompleted() {
+        return onboardingCompleted;
+    }
+
+    public void setOnboardingCompleted(boolean onboardingCompleted) {
+        this.onboardingCompleted = onboardingCompleted;
     }
 
     public ThemeMode getThemeMode() {
@@ -82,12 +93,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs otherUserPrefs = (UserPrefs) other;
         return guiSettings.equals(otherUserPrefs.guiSettings)
                 && addressBookFilePath.equals(otherUserPrefs.addressBookFilePath)
+                && onboardingCompleted == otherUserPrefs.onboardingCompleted
                 && themeMode == otherUserPrefs.themeMode;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, themeMode);
+        return Objects.hash(guiSettings, addressBookFilePath, onboardingCompleted, themeMode);
     }
 
     @Override
@@ -95,6 +107,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nOnboarding completed : " + onboardingCompleted);
         sb.append("\nTheme mode : " + themeMode);
         return sb.toString();
     }

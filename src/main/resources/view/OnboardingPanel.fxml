@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="onboarding-panel" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <padding>
+    <Insets top="8" right="10" bottom="8" left="10" />
+  </padding>
+  <Label styleClass="onboarding-heading" text="Getting started" />
+  <TextArea fx:id="messageText" editable="false" wrapText="true" minHeight="96" prefHeight="120" maxHeight="180"
+            styleClass="onboarding-text" VBox.vgrow="NEVER" />
+</VBox>

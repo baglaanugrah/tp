@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.onboarding.OnboardingCoordinator;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.statistics.StatisticsCalculator;
 import seedu.address.logic.statistics.StatisticsSummary;
@@ -48,12 +50,20 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private StatisticsPanel statisticsPanel;
     private PersonDetailPanel personDetailPanel;
+    private OnboardingPanel onboardingPanel;
+    private OnboardingCoordinator onboardingCoordinator;
+
+    @FXML
+    private StackPane onboardingPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem skipOnboardingMenuItem;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -153,6 +163,66 @@ public class MainWindow extends UiPart<Stage> {
         statisticsPanel = new StatisticsPanel();
 
         updateModeView();
+
+        onboardingPanel = new OnboardingPanel();
+        onboardingPlaceholder.getChildren().setAll(onboardingPanel.getRoot());
+        if (!logic.isOnboardingCompleted()) {
+            onboardingCoordinator = new OnboardingCoordinator();
+            onboardingPanel.setMessage(onboardingCoordinator.getWelcomeMessage(logic));
+            showOnboardingPlaceholder();
+        } else {
+            onboardingCoordinator = null;
+            hideOnboardingPlaceholder();
+        }
+        refreshOnboardingMenu();
+    }
+
+    private void showOnboardingPlaceholder() {
+        onboardingPlaceholder.setVisible(true);
+        onboardingPlaceholder.setManaged(true);
+    }
+
+    private void hideOnboardingPlaceholder() {
+        onboardingPlaceholder.setVisible(false);
+        onboardingPlaceholder.setManaged(false);
+    }
+
+    private void refreshOnboardingMenu() {
+        boolean showSkip = !logic.isOnboardingCompleted();
+        skipOnboardingMenuItem.setVisible(showSkip);
+    }
+
+    /**
+     * Marks onboarding as skipped and hides tutorial prompts.
+     */
+    @FXML
+    private void handleSkipOnboarding() {
+        if (logic.isOnboardingCompleted()) {
+            return;
+        }
+        logic.setOnboardingCompleted(true);
+        onboardingCoordinator = null;
+        hideOnboardingPlaceholder();
+        refreshOnboardingMenu();
+        resultDisplay.setFeedbackToUser("Onboarding skipped. You can explore commands from the Help menu.");
+    }
+
+    /**
+     * Updates the onboarding panel only; command feedback and errors stay in {@link ResultDisplay}.
+     */
+    private void processOnboardingAfterCommand(String commandText, boolean commandSucceeded) {
+        if (onboardingCoordinator == null) {
+            return;
+        }
+        Optional<String> panelText = onboardingCoordinator.onCommandExecuted(commandText, commandSucceeded, logic);
+        if (onboardingCoordinator.isFlowFinishedInSession()) {
+            logic.setOnboardingCompleted(true);
+            onboardingCoordinator = null;
+            refreshOnboardingMenu();
+            hideOnboardingPlaceholder();
+            return;
+        }
+        panelText.ifPresent(text -> onboardingPanel.setMessage(text));
     }
 
     private void updateModeView() {
@@ -291,6 +361,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            processOnboardingAfterCommand(commandText, true);
 
             updateModeView();
             commandResult.getThemeMode().ifPresent(this::applyTheme);
@@ -313,6 +384,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            processOnboardingAfterCommand(commandText, false);
             throw e;
         }
     }

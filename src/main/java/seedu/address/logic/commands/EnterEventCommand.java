@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -36,6 +37,10 @@ public class EnterEventCommand extends Command {
         requireNonNull(model);
 
         List<Event> lastShownEventList = model.getFilteredEventList();
+
+        if (model.isInEventParticipantsMode()) {
+            throw new CommandException(Messages.MESSAGE_ALREADY_IN_EVENT);
+        }
 
         if (index.getZeroBased() >= lastShownEventList.size()) {
             throw new CommandException("The event index provided is invalid");

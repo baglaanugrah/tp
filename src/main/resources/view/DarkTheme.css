@@ -820,3 +820,27 @@
     -fx-fill: #ffd166;
     -fx-font-weight: bold;
 }
+
+/* First-launch tutorial — distinct from command result / errors */
+.onboarding-panel {
+    -fx-background-color: derive(#1a3d4d, -5%);
+    -fx-border-color: derive(#3e7b91, 10%);
+    -fx-border-width: 1px;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.onboarding-heading {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #a8d8ea;
+    -fx-padding: 0 0 4 0;
+}
+
+.onboarding-text {
+    -fx-background-color: derive(#1d1d1d, 12%);
+    -fx-control-inner-background: derive(#1d1d1d, 12%);
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11pt;
+    -fx-text-fill: #e8f4f8;
+}

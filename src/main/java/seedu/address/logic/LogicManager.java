@@ -19,6 +19,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -107,6 +108,23 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public boolean isOnboardingCompleted() {
+        return model.getUserPrefs().isOnboardingCompleted();
+    }
+
+    @Override
+    public void setOnboardingCompleted(boolean completed) {
+        UserPrefs prefs = new UserPrefs(model.getUserPrefs());
+        prefs.setOnboardingCompleted(completed);
+        model.setUserPrefs(prefs);
+        try {
+            storage.saveUserPrefs(prefs);
+        } catch (IOException e) {
+            logger.warning("Could not save onboarding preference: " + e.getMessage());
+        }
     }
 
     @Override

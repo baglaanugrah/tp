@@ -63,6 +63,12 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** @return true if the first-launch onboarding tutorial was completed or skipped */
+    boolean isOnboardingCompleted();
+
+    /** Persists that onboarding is finished (tutorial completed or skipped). */
+    void setOnboardingCompleted(boolean completed);
+
     /**
      * Returns the user prefs' theme mode.
      */

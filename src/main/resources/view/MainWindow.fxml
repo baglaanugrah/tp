@@ -29,8 +29,12 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            <MenuItem fx:id="skipOnboardingMenuItem" mnemonicParsing="false" onAction="#handleSkipOnboarding"
+                      text="Skip onboarding" />
           </Menu>
         </MenuBar>
+
+        <StackPane fx:id="onboardingPlaceholder" VBox.vgrow="NEVER" visible="false" managed="false" />
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
