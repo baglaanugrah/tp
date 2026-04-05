@@ -17,6 +17,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_ENTER_EVENT_FIRST = "Please enter an event first.";
+    public static final String MESSAGE_ALREADY_IN_EVENT = "You are already in an event. Please exit "
+                                                          + "this event to enter another event.";
+    public static final String MESSAGE_LEAVE_EVENT_FIRST_BEFORE_EXIT =
+            "Please leave the current event before exiting the application.";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
