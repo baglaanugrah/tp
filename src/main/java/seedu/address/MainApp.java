@@ -93,7 +93,7 @@ public class MainApp extends Application {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
                         + " populated with a sample AddressBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(AddressBook::new);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty AddressBook.");
@@ -108,7 +108,7 @@ public class MainApp extends Application {
                 logger.info("No event book data file found at " + storage.getEventBookFilePath()
                         + ". Starting with an empty EventBook.");
             }
-            initialEventData = eventBookOptional.orElse(new EventBook());
+            initialEventData = eventBookOptional.orElseGet(SampleDataUtil::getSampleEventBook);
         } catch (DataLoadingException e) {
             logger.warning("Event book data file at " + storage.getEventBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty EventBook.");
