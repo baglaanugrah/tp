@@ -17,6 +17,7 @@ public class SwitchModeCommand extends Command {
             + "Example: " + COMMAND_WORD + " dark";
 
     public static final String MESSAGE_SUCCESS = "Switched to %s mode.";
+    public static final String MESSAGE_ALREADY_IN_MODE = "You are already in %s mode.";
 
     private final ThemeMode targetThemeMode;
 
@@ -27,6 +28,15 @@ public class SwitchModeCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        if (model.getThemeMode() == targetThemeMode) {
+            return new CommandResult(
+                    String.format(MESSAGE_ALREADY_IN_MODE, targetThemeMode.getDisplayName().toLowerCase()),
+                    false,
+                    false,
+                    false,
+                    false);
+        }
+
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, targetThemeMode.getDisplayName().toLowerCase()),
                 false,

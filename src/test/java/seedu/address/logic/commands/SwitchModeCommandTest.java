@@ -30,6 +30,33 @@ public class SwitchModeCommandTest {
     }
 
     @Test
+    public void execute_alreadyInDarkMode_showsAlreadyMessage() {
+        CommandResult expectedCommandResult = new CommandResult(
+                String.format(SwitchModeCommand.MESSAGE_ALREADY_IN_MODE, "dark"),
+                false,
+                false,
+                false,
+                false);
+
+        assertCommandSuccess(new SwitchModeCommand(ThemeMode.DARK), model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void execute_alreadyInLightMode_showsAlreadyMessage() {
+        model.setThemeMode(ThemeMode.LIGHT);
+        expectedModel.setThemeMode(ThemeMode.LIGHT);
+
+        CommandResult expectedCommandResult = new CommandResult(
+                String.format(SwitchModeCommand.MESSAGE_ALREADY_IN_MODE, "light"),
+                false,
+                false,
+                false,
+                false);
+
+        assertCommandSuccess(new SwitchModeCommand(ThemeMode.LIGHT), model, expectedCommandResult, expectedModel);
+    }
+
+    @Test
     public void equals() {
         SwitchModeCommand switchToDark = new SwitchModeCommand(ThemeMode.DARK);
         SwitchModeCommand switchToLight = new SwitchModeCommand(ThemeMode.LIGHT);
