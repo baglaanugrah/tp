@@ -30,14 +30,17 @@ your event management tasks done faster than traditional GUI apps.
 
   Some example commands you can try:
   - `addevent n/Tech Meetup d/2026-06-15 l/NUS Techno Edge desc/Annual networking session` : Adds an event.
+  - `list` : Lists all events in the event list view.
+  - `search tech` : Searches the displayed event list for matching events.
   - `enter event 1` : Enters the 1st event so applicant commands operate on that event's participant list.
   - `deleteevent 2` : Deletes the 2nd event and its participant list.
-  - `list` : Lists all applicants in the current event.
+  - `list` : Lists all participants in the current event.
   - `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 tm/Dev g/johndoe r/yes` : Adds an applicant with team, GitHub, and RSVP status.
   - `filter r/yes` : Filters to show only applicants who have RSVP'd yes.
   - `checkin 1` : Marks the 1st applicant in the current list as checked in.
   - `assign 2 team/Alpha` : Assigns the 2nd applicant to team Alpha.
   - `delete 3` : Deletes the 3rd applicant shown in the current list.
+  - `switchmode light` : Switches the app to light mode.
   - `leave` : Returns to the event list.
   - `exit` : Exits the app.
 6. Refer to the [Features](#features) below for details of each command.
@@ -73,6 +76,22 @@ e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 Shows a message explaining how to access the help page.
 
 Format: `help`
+
+### Switching theme mode : `switchmode`
+
+Switches the application between dark mode and light mode.
+
+Format: `switchmode THEME`
+
+- `THEME` must be either `dark` or `light`.
+- This command can be used in both the event list view and the participant list view.
+- If you are already in the requested theme, the app will show `You are already in dark mode.` or
+  `You are already in light mode.`
+
+Examples:
+
+- `switchmode dark`
+- `switchmode light`
 
 ### Adding an event : `addevent`
 
@@ -166,13 +185,20 @@ Examples:
 - `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25`
 - `add n/Betsy Crowe p/1234567 e/betsy@example.com a/Newgate Prison tm/Development g/betsycrowe r/yes t/Python t/ML`
 
-### Listing all applicants : `list`
+### Listing all events or applicants : `list`
 
-Lists all the people in the directory.
+Lists all events in the event list view, or all applicants in the currently entered event.
 
 Format: `list`
 
-- You must enter an event first using `enter event INDEX`.
+- In the event list view, `list` shows all events.
+- After `enter event INDEX`, `list` shows all applicants in the current event.
+- `list` clears any active `search` results in the current view and restores the full list.
+
+Examples:
+
+- `list` — Shows all events when you are in the event list view.
+- `enter event 1` followed by `list` — Shows all applicants in the 1st event.
 
 ### Importing applicants from CSV : `import`
 
@@ -291,24 +317,26 @@ Examples:
 - `list` followed by `checkin 1` — Checks in the 1st applicant in the list.
 - `filter r/yes` followed by `checkin 2` — Checks in the 2nd applicant from the filtered results.
 
-### Locating applicants by name, email, or GitHub username : `search`
+### Searching events or applicants : `search`
 
-Finds applicants whose names, emails, or GitHub usernames match any of the given keywords. (Renamed from `find`.) Supports searching by email and GitHub username; email and GitHub matching use substring matching.
+Searches the currently active list using one or more keywords.
 
 Format: `search KEYWORD [MORE_KEYWORDS]`
 
-- The search is case-insensitive. e.g. `hans` will match `Hans`
-- The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-- Names, emails, and GitHub usernames are searched.
-- Names use full-word matching e.g. `Han` will not match `Hans`
-- Email and GitHub username matches use case-insensitive substring matching.
-- Applicants matching at least one keyword will be returned (i.e. `OR` search).
-- You must enter an event first using `enter event INDEX`.
+- The search is case-insensitive.
+- The order of the keywords does not matter.
+- Items matching at least one keyword will be returned (i.e. `OR` search).
+- In the event list view, `search` looks through event `name`, `date`, `location`, and `description`.
+- After `enter event INDEX`, `search` looks through applicant `name`, `phone`, `address`, `email`, `team`,
+  `GitHub`, and `check-in status`.
+- Matching uses case-insensitive substring matching on the relevant visible fields.
 
 Examples:
 
-- `search John` — Returns applicants named John
-- `search alexyeoh@example.com lidavid` — Returns applicants matching the email or GitHub username
+- `search tech 2026-06-15` — Returns events whose details match either `tech` or `2026-06-15`.
+- `enter event 1` followed by `search alex` — Returns applicants in the current event whose details match `alex`.
+- `enter event 1` followed by `search lidavid checked-in` — Returns applicants in the current event matching either
+  `lidavid` or `checked-in`.
 
 ### Deleting an applicant : `delete`
 
@@ -391,7 +419,8 @@ Furthermore, certain edits can cause TeamEventPro to behave in unexpected ways (
 | **Filter**  | `filter r/RSVP` or `filter t/TAG` e.g., `filter r/yes`, `filter t/Python`                                                                                                                 |
 | **Import**  | `import FILE_PATH` or `import list` e.g., `import data/participants.csv`, `import list`                                                                                                   |
 | **List**    | `list`                                                                                                                                                                                    |
-| **Export**  | `export [FILE_PATH]` e.g., `export`, `export data/exports/hacknight.csv`                                                                                                                  |
-| **Search**  | `search KEYWORD [MORE_KEYWORDS]` e.g., `search James Jake`                                                                                                                                |
+| **Search**  | `search KEYWORD [MORE_KEYWORDS]` e.g., `search tech meetup`                                                                                                                               |
+| **SwitchMode** | `switchmode THEME` e.g., `switchmode light`                                                                                                                                           |
+| **Export**  | `export [FILE_PATH]` e.g., `export`, `export data/exports/hacknight.csv`                                                                                                                  |                                                                                                                               |
 | **Help**    | `help`                                                                                                                                                                                    |
 | **Exit**    | `exit`                                                                                                                                                                                    |
