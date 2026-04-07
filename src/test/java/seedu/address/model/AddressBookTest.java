@@ -79,6 +79,18 @@ public class AddressBookTest {
     }
 
     @Test
+    public void checkInPerson_personWithTeam_teamIsPreserved() {
+        Person personWithTeam = new PersonBuilder(ALICE).withTeam("Alpha").build();
+        addressBook.addPerson(personWithTeam);
+
+        addressBook.checkInPerson(personWithTeam);
+
+        Person checkedInPerson = addressBook.getPersonList().get(0);
+        assertTrue(checkedInPerson.getCheckInStatus().getStatus());
+        assertEquals(personWithTeam.getTeam(), checkedInPerson.getTeam());
+    }
+
+    @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
