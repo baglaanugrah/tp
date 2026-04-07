@@ -45,7 +45,8 @@ public class PersonMatchesFilterPredicate implements Predicate<Person> {
     }
 
     private boolean matchesRsvp(Person person, RsvpStatus rsvpStatus) {
-        return person.getRsvpStatus().toString().toLowerCase(Locale.ROOT).equals(rsvpStatus.toString().toLowerCase(Locale.ROOT));
+        return person.getRsvpStatus().toString().toLowerCase(Locale.ROOT)
+                .equalsIgnoreCase(rsvpStatus.toString().toLowerCase(Locale.ROOT));
     }
 
     private boolean matchesTags(Person person, Set<Tag> tags) {
