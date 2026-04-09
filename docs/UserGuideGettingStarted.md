@@ -40,22 +40,7 @@ For macOS-specific setup guidance, follow the prescribed JDK instructions in the
 
 ---
 
-## 4. First 5-minute workflow
-
-Try this sequence to confirm your app is working end-to-end:
-
-1. `addevent n/Tech Meetup d/2026-06-15 l/NUS COM1 desc/Networking night`
-2. `enter event 1`
-3. `add n/John Doe p/98765432 e/johnd@example.com a/311 Clementi Ave 2`
-4. `checkin 1`
-5. `statistics`
-6. `leave`
-
-If all commands execute successfully, your setup is complete.
-
----
-
-## 5. Where to go next
+## 4. Where to go next
 
 - For shared command conventions, prefix usage, and index/list behavior, see [Command Fundamentals](UserGuideCommandFundamentals.md).
 - View global commands in [Common Commands](UserGuideCommonCommands.md).
@@ -64,7 +49,7 @@ If all commands execute successfully, your setup is complete.
 
 ---
 
-## 6. Navigation
+## 5. Navigation
 
 - [Back to Introduction and App Modes](UG.md)
 - [Go to Command Fundamentals](UserGuideCommandFundamentals.md)

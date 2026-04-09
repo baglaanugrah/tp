@@ -14,7 +14,6 @@ Read this once before using [Event Commands](UserGuideEvents.md) or [Participant
 ## 1. Command notation
 
 - Words in `UPPER_CASE` are parameters to be supplied by the user.
-- Items in square brackets are optional.
 - Items followed by `...` can be used multiple times.
 - For prefixed arguments, parameter order usually does not matter unless stated otherwise.
 - Indexes refer to the numbers shown in the displayed list.
@@ -51,7 +50,7 @@ Most commands follow one of these patterns:
 | `d/` | Event date | `YYYY-MM-DD`, e.g. `d/2026-10-03` | Invalid date format, e.g. `d/03-10-2026` |
 | `l/` | Event location | Optional free text, e.g. `l/NUS COM1` |  |
 | `desc/` | Event description | Optional free text, e.g. `desc/Weekly meetup` |  |
-| `checkin/` | Check-in filter status | `yes`, `no`, `checked-in`, `not checked-in`, `true`, `false` | Any other value, e.g. `checkin/maybe` |
+| `checkin/` | Check-in filter status | `yes`, `no` | Any other value, e.g. `checkin/maybe` |
 
 For required fields, an empty prefix value is invalid unless explicitly stated otherwise.
 Use the exact prefix expected by each command. Prefixes are not interchangeable.

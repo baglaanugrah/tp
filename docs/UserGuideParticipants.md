@@ -25,7 +25,7 @@ Used to add a participant to the currently entered event.
 `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 tm/Development g/johndoe r/yes t/friends`
 
 #### Successful Execution
-`New participant added: ...`
+`New applicant added: ...`
 
 #### Notes
 - Can only be used inside an event.
@@ -225,7 +225,7 @@ filter checkin/yes
 - Supported prefixes are `r/`, `t/`, `team/`, and `checkin/`.
 - Only one filter criterion can be used per command (e.g., `filter r/yes t/python` is invalid).
 - Filtering is not cumulative across commands; each `filter` command replaces the previous filter/search.
-- `checkin/` accepts `yes`, `no`, `checked-in`, `not checked-in`, `true`, or `false` (case-insensitive).
+- `checkin/` accepts `yes` or `no`(case-insensitive).
 
 ### 3.2 View command
 
