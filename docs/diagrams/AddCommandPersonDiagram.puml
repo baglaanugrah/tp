@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+show members
+
+class Person {
+    -name: Name
+    -phone: Phone
+    -email: Email
+    -address: Address
+    -team: Optional<Team>
+    -github: GitHub
+    -rsvpStatus: RsvpStatus
+    -checkInStatus: Attendance
+    -tags: Set<Tag>
+    +isSamePerson(Person): boolean
+    +equals(Object): boolean
+}
+
+class Name {
+    +fullName: String
+    {static} VALIDATION_REGEX: String
+    {static} MAX_NAME_LENGTH: int
+    {static} isValidName(String): boolean
+}
+
+class Phone {
+    +value: String
+    {static} isValidPhone(String): boolean
+}
+
+class Email {
+    +value: String
+    {static} isValidEmail(String): boolean
+}
+
+class Address {
+    +value: String
+    {static} isValidAddress(String): boolean
+}
+
+class Team {
+    +teamName: String
+    {static} isValidTeam(String): boolean
+}
+
+class GitHub {
+    +username: String
+    {static} isValidGitHub(String): boolean
+}
+
+class RsvpStatus {
+    +status: String
+    {static} isValidRsvpStatus(String): boolean
+}
+
+class Attendance {
+    +isCheckedIn: boolean
+}
+
+class Tag {
+    +tagName: String
+}
+
+Person *-- Name
+Person *-- Phone
+Person *-- Email
+Person *-- Address
+Person *-left- "0..1" Team
+Person *-- "0..1" GitHub
+Person *-- RsvpStatus
+Person *-- Attendance
+Person *-- "*" Tag
+@enduml
