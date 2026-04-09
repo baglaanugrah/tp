@@ -44,6 +44,7 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
+UiManager -right-> Logic
 MainWindow *-down-> "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PersonListPanel
@@ -53,6 +54,7 @@ MainWindow *-down-> "1" PersonDetailPanel
 MainWindow *-down-> "1" OnboardingPanel
 MainWindow *-down-> "1" StatusBarFooter
 MainWindow --> "0..1" HelpWindow
+MainWindow -right-> Logic
 
 PersonListPanel -down-> "*" PersonCard
 EventListPanel -down-> "*" EventCard
@@ -72,8 +74,7 @@ EventCard --|> UiPart
 
 PersonCard ..> Model
 EventCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+PersonDetailPanel ..> Model
 
 MainWindow -[hidden]-|> UiPart
 @enduml

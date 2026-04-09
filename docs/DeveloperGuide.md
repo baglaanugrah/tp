@@ -73,8 +73,8 @@ The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
-* keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` and `Event` objects residing in the `Model`.
+* keeps references to the `Logic` component in both `UiManager` and `MainWindow`, because the `UI` relies on `Logic` to execute commands and refresh state-dependent views.
+* depends on classes in the `Model` component, as it displays `Person` and `Event` objects and renders participant details.
 
 ### Logic component
 
@@ -125,9 +125,11 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores participant data in an `AddressBook` (all `Person` objects in a `UniquePersonList`).
+* stores event data in an `EventBook` (all `Event` objects in a `UniqueEventList`).
+* stores filtered views as unmodifiable observable lists for both participants (`ObservableList<Person>`) and events (`ObservableList<Event>`), so the UI updates automatically when filters or underlying data change.
+* tracks the currently active event context (`activeEvent`) when the app is in event-participants mode.
+* stores a `UserPrefs` object that represents user preferences, exposed externally through `ReadOnlyUserPrefs`.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <box type="info" seamless>
