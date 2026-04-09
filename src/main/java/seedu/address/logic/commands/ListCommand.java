@@ -13,6 +13,8 @@ import seedu.address.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all events or participants.\n"
+            + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS_EVENTS = "Listed all events";
     public static final String MESSAGE_SUCCESS_PARTICIPANTS = "Listed all participants";
