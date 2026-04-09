@@ -11,12 +11,6 @@
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
-
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
@@ -269,6 +263,30 @@ _{Explain here how the data archiving feature will be implemented}_
 * [Logging guide](Logging.md)
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+### Anugrah Bagla
+
+Project advisor. Thank you for guidance on scope, architecture, and quality of deliverables.
+
+### Zhou Jinhao
+
+Thank you for contributions across the user interface and related user-facing behaviour.
+
+### Debopam Roy
+
+Thank you for contributions to data modelling, persistence, and storage-related behaviour.
+
+### Han Shangda
+
+Thank you for contributions to feature implementation and overall development effort.
+
+### Manya Agarwal
+
+Team lead. Thank you for coordination, integration work, and keeping the project on track.
 
 --------------------------------------------------------------------------------------------------------------------
 
