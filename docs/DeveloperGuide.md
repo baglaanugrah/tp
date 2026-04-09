@@ -364,6 +364,12 @@ Used Claude (Claude Code) for:
 
 ### Han Shangda
 
+Used codex/cursor to support selected development and documentation tasks, including:
+* refining the User Guide and Developer Guide wording and structure.
+* checking the behavior of commands such as `list`, `search`, `switchmode`, `editevent`, and `deleteevent`.
+* identifying possible edge cases, error-message issues, and documentation inconsistencies.
+* assisting with test checking, bug investigation, and troubleshooting during implementation.
+All AI-assisted output was reviewed, edited, and verified before being included in the final submission.
 
 ### Manya Agarwal
 
