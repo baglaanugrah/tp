@@ -16,6 +16,13 @@ public class LeaveEventCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + "event";
     public static final String MESSAGE_LEAVE_EVENT_SUCCESS = "Returned to event list";
 
+    /**
+     * Leaves the current event and switches the app back to the event list context.
+     *
+     * @param model {@link Model} holding the current UI context
+     * @return command result message confirming that event mode was exited
+     * @throws CommandException if the app is not currently inside an event
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -28,4 +35,3 @@ public class LeaveEventCommand extends Command {
         return new CommandResult(MESSAGE_LEAVE_EVENT_SUCCESS);
     }
 }
-

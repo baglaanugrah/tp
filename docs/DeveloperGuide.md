@@ -346,7 +346,11 @@ Failure paths:
 ## **Acknowledgements**
 
 ### Anugrah Bagla
-
+Used Cursor and Codex for 
+* Understanding the codebase to implement features.
+* Design multiple features such as `enter event`, `checkin` etc.
+* Writing test cases for the features.
+* Debugging errors.
 
 ### Zhou Jinhao
 
@@ -378,15 +382,14 @@ Used Cursor (auto mode) for:
 
 **Target user profile**:
 
-* Tech meetup organizers managing small-to-medium events (20–150 participants) in Singapore
-* Manages multiple events per month with varying participant lists
-* Needs to perform live check-ins and track real-time attendance during events
-* Prefers desktop applications for stability and offline capability during events
-* Types fast and prefers keyboard shortcuts over mouse navigation
-* Comfortable with command-line interfaces and text-based input
-* Requires instant filtering and searching capabilities (by RSVP, attendance, team, dietary needs)
-* Manages hackathon team assignments and participant skill tracking
-* Values data accuracy and quick error correction during live events
+* Tech meetup organizers managing small-to-medium events (20–150 participants).
+* Manages multiple events per month with varying participant lists.
+* Needs to perform live check-ins and track real-time attendance during events.
+* Prefers desktop applications for stability and offline capability during events.
+* Types fast and prefers keyboard shortcuts over mouse navigation.
+* Requires instant filtering and searching capabilities (by RSVP, attendance, team, dietary needs).
+* Manages hackathon team assignments and participant skill tracking.
+* Values data accuracy and quick error correction during live events.
 
 **Value proposition**:
 

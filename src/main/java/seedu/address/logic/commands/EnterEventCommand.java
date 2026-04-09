@@ -32,6 +32,13 @@ public class EnterEventCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Enters the selected event and switches the app into participant-list mode for that event.
+     *
+     * @param model {@link Model} containing the currently displayed event list
+     * @return command result message indicating the entered event
+     * @throws CommandException if already inside an event or if the event index is invalid
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -65,4 +72,3 @@ public class EnterEventCommand extends Command {
         return index.equals(e.index);
     }
 }
-

@@ -39,6 +39,13 @@ public class CheckInCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Marks the participant at the given index as checked in within the current event context.
+     *
+     * @param model {@link Model} containing event-scoped participant data
+     * @return command result message indicating the checked-in participant
+     * @throws CommandException if not currently inside an event or if the index is invalid
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

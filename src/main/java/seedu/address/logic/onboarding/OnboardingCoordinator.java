@@ -65,6 +65,12 @@ public class OnboardingCoordinator {
                 + instructionForCurrentStep(logic);
     }
 
+    /**
+     * Sets the onboarding step from persisted preferences.
+     * Out-of-range values are clamped to supported tutorial steps.
+     *
+     * @param currentStep persisted step number
+     */
     public void setCurrentStep(int currentStep) {
         this.currentStep = OnboardingStep.fromStepNumber(currentStep);
     }
@@ -152,16 +158,26 @@ public class OnboardingCoordinator {
 
     }
 
+    /**
+     * Returns whether the tutorial flow has reached its final step in this app session.
+     */
     public boolean isFlowFinishedInSession() {
         return flowFinishedInSession;
     }
 
+    /**
+     * Returns whether a successful {@code enter event ...} should be treated as a prerequisite action
+     * while resuming onboarding from a participant-related step.
+     */
     private boolean shouldAllowEventReentry(String commandWord, Logic logic) {
         return currentStep.stepNumber() >= OnboardingStep.ADD_PARTICIPANT.stepNumber()
                 && EnterEventCommand.COMMAND_WORD.equals(commandWord)
                 && logic.isInEventParticipantsMode();
     }
 
+    /**
+     * Stores the most recently shown event and its displayed index for personalized instructions.
+     */
     private void refreshTutorialEventFromModel(Logic logic) {
         var events = logic.getFilteredEventList();
         if (events.isEmpty()) {
@@ -172,6 +188,9 @@ public class OnboardingCoordinator {
         tutorialEventIndex = events.indexOf(last) + 1;
     }
 
+    /**
+     * Stores the most recently shown participant name for personalized instructions.
+     */
     private void refreshTutorialParticipantFromModel(Logic logic) {
         var persons = logic.getFilteredPersonList();
         if (persons.isEmpty()) {
@@ -181,6 +200,9 @@ public class OnboardingCoordinator {
         tutorialParticipantName = last.getName().fullName;
     }
 
+    /**
+     * Stores any currently assigned team name for personalized instructions.
+     */
     private void refreshTutorialTeamFromModel(Logic logic) {
         for (Person p : logic.getFilteredPersonList()) {
             if (p.getTeam().isPresent()) {
@@ -224,6 +246,9 @@ public class OnboardingCoordinator {
                 + instructionForCurrentStep(logic);
     }
 
+    /**
+     * Builds the command instruction block for the current onboarding step.
+     */
     private String instructionForCurrentStep(Logic logic) {
         if (requiresEventReentry(logic)) {
             return "Resume by reopening \"" + eventNameOrPlaceholder() + "\":\n"
@@ -269,6 +294,9 @@ public class OnboardingCoordinator {
         return "Jane";
     }
 
+    /**
+     * Returns whether the current step needs event context to continue.
+     */
     private boolean requiresEventReentry(Logic logic) {
         return currentStep.stepNumber() >= OnboardingStep.ADD_PARTICIPANT.stepNumber()
                 && !logic.isInEventParticipantsMode();
@@ -310,6 +338,9 @@ public class OnboardingCoordinator {
             return expectedCommandWord.equals(commandWord);
         }
 
+        /**
+         * Maps a persisted step number to the nearest valid onboarding step.
+         */
         static OnboardingStep fromStepNumber(int stepNumber) {
             int clampedStep = Math.min(Math.max(stepNumber, 1), values().length);
             return values()[clampedStep - 1];

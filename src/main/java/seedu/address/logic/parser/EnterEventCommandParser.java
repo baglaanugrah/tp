@@ -11,6 +11,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EnterEventCommandParser implements Parser<EnterEventCommand> {
 
+    /**
+     * Parses the given argument string and creates an {@link EnterEventCommand}.
+     * Expected format: {@code event INDEX}.
+     *
+     * @param args raw argument string
+     * @return parsed {@code EnterEventCommand}
+     * @throws ParseException if the input does not match the expected format
+     */
     @Override
     public EnterEventCommand parse(String args) throws ParseException {
         if (args == null) {
@@ -28,4 +36,3 @@ public class EnterEventCommandParser implements Parser<EnterEventCommand> {
         return new EnterEventCommand(index);
     }
 }
-

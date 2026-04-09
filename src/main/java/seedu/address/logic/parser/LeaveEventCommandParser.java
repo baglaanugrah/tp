@@ -10,6 +10,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class LeaveEventCommandParser implements Parser<LeaveEventCommand> {
 
+    /**
+     * Parses the given argument string and creates a {@link LeaveEventCommand}.
+     * Expected format: {@code event}.
+     *
+     * @param args raw argument string
+     * @return parsed {@code LeaveEventCommand}
+     * @throws ParseException if the input does not match the expected format
+     */
     @Override
     public LeaveEventCommand parse(String args) throws ParseException {
         if (args == null) {
@@ -24,4 +32,3 @@ public class LeaveEventCommandParser implements Parser<LeaveEventCommand> {
         return new LeaveEventCommand();
     }
 }
-
