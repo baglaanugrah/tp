@@ -528,13 +528,18 @@ Extensions:
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Participant**: A person who has registered to be part of the event.
-* **Participant Record**: The complete set of information stored about the participant.
-* **RSVP**: A participant's response indicating whether they will attend the event or not.
-* **Prefix**: A shorthand label used in commands to indicate specific fields (e.g. `n/` for name)
-* **Duplicate Participant**: A participant entry that matches another participant’s unique identifying fields.
-* **CSV (Comma-Separated Values)**: A file format used to store tabular data.
+* **Mainstream OS**: Common desktop operating systems that typical users run applications on, such as Windows, macOS, and Linux.
+* **Organizer**: The primary user of TeamEventPro who manages events and their participants.
+* **Event**: A scheduled activity managed in TeamEventPro, identified by details such as its name, date, location, and description.
+* **Global Event View**: The top-level context in which the organizer browses and manages events before entering a specific event.
+* **Event Participant View**: The in-event context shown after the organizer enters an event, where commands operate on that event's participants.
+* **Participant**: A person registered under a specific event in TeamEventPro.
+* **Participant Record**: The full set of data stored for a participant, such as contact details, tags, team assignment, RSVP status, and check-in status.
+* **RSVP**: A participant's attendance response, recorded as `yes`, `no`, or `pending`.
+* **Check-in Status**: Whether a participant has been marked as present at the event.
+* **Prefix**: A field marker used in command input to indicate how a value should be interpreted by the parser (e.g. `n/` for name).
+* **Duplicate Participant**: A participant entry that the system considers identical to an existing participant according to its duplicate-detection rules.
+* **CSV (Comma-Separated Values)**: A plain-text file format used to store tabular data, where each line represents a row and commas separate values.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -554,7 +559,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample events. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -565,24 +570,24 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting an applicant
+### Deleting a participant
 
-1. Deleting an applicant while all applicants are being shown
+1. Deleting a participant while all participants are being shown
 
-   1. Prerequisites: List all applicants using the `list` command. Multiple applicants in the list.
+   1. Prerequisites: Enter an event so the participant list is shown. Multiple participants in the current event list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: The first participant is deleted from the list. Details of the deleted participant are shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No applicant is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No participant is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
-### Filtering applicants
+### Filtering participants
 
 1. Filtering while inside an event
 
@@ -615,7 +620,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Filtering without entering an event first
 
-   1. Prerequisites: Launch the app but do **not** run `enter event`; stay at the event selection view if applicable.
+   1. Prerequisites: Launch the app but do **not** run `enter event`; stay in the global event view.
 
    1. Test case: `filter r/yes`<br>
       Expected: Command fails with a message indicating the user must enter an event first; participant list not updated.
