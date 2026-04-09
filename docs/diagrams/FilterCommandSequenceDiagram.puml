@@ -27,35 +27,41 @@ activate FilterCommandParser
 FilterCommandParser --> AddressBookParser
 deactivate FilterCommandParser
 
-AddressBookParser -> FilterCommandParser : parse("t/python")
+AddressBookParser -> FilterCommandParser : parse(" t/python")
 activate FilterCommandParser
 
 create FilterCommand
 FilterCommandParser -> FilterCommand : FilterCommand(predicate)
 activate FilterCommand
 
-FilterCommand --> FilterCommandParser
+FilterCommand --> FilterCommandParser :
 deactivate FilterCommand
 
 FilterCommandParser --> AddressBookParser : f
 deactivate FilterCommandParser
+FilterCommandParser -[hidden]-> AddressBookParser
+destroy FilterCommandParser
 
 AddressBookParser --> LogicManager : f
 deactivate AddressBookParser
 
 LogicManager -> FilterCommand : execute(m)
 activate FilterCommand
+
 FilterCommand -> Model : updateFilteredPersonList(predicate)
 activate Model
+Model --> FilterCommand
+deactivate Model
 
+FilterCommand -> Model : getFilteredPersonList()
+activate Model
 Model --> FilterCommand
 deactivate Model
 
 create CommandResult
 FilterCommand -> CommandResult
 activate CommandResult
-
-CommandResult --> FilterCommand
+CommandResult --> FilterCommand : r
 deactivate CommandResult
 
 FilterCommand --> LogicManager : r
@@ -63,4 +69,10 @@ deactivate FilterCommand
 
 [<--LogicManager : r
 deactivate LogicManager
+
+note right of FilterCommand
+  If not in event participants mode,
+  execute throws CommandException
+  (MESSAGE_ENTER_EVENT_FIRST).
+end note
 @enduml

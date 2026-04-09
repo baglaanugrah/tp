@@ -16,33 +16,11 @@ TeamEventPro provides the speed of a Command Line Interface (CLI) while still of
 
 ---
 
-## 2. Quick Start
-
-1. Ensure you have Java `17` or above installed on your computer.
-
-   - Mac users should ensure they are using the precise JDK version required for the project.
-
-2. Download the latest `.jar` file from the project’s release page.
-
-3. Copy the `.jar` file into the folder you want to use as the home folder for TeamEventPro.
-
-4. Open a terminal, navigate to the folder containing the `.jar` file, and run:
-
-   `java -jar addressbook.jar`
-
-5. Wait a few seconds for the application window to open.
-
-6. Type commands into the command box and press Enter to execute them.
-
-7. An onboarding tutorial will begin when you open the application for the first time. Please go through that to familiarize
-   yourself with the application.
----
-
-## 3. Understanding App Modes
+## 2. Understanding App Modes
 
 TeamEventPro has two main modes of use.
 
-### 3.1 Outside an event
+### 2.1 Outside an event
 
 In this mode, you are viewing and managing the list of events.
 
@@ -53,7 +31,9 @@ You can use this mode to:
 - search for events
 - enter a specific event
 
-### 3.2 Inside an event
+Full details for these commands are in [Event Commands](UserGuideEvents.md).
+
+### 2.2 Inside an event
 
 In this mode, you are managing participants within a selected event.
 
@@ -66,20 +46,9 @@ You can use this mode to:
 - import and export participant data
 - leave the current event and return to the event list
 
----
+Full details for these commands are in [Participant Commands](UserGuideParticipants.md).
 
-## 4. Notes About Command Format
-
-- Words in `UPPER_CASE` are parameters to be supplied by the user.
-- Items in square brackets are optional.
-- Items followed by `...` can be used multiple times.
-- Parameters can usually be entered in any order unless stated otherwise.
-- Indexes refer to the numbers shown in the displayed list.
-- Dates should follow the format `YYYY-MM-DD`.
-
----
-
-## 5. Commands Available in Both Modes
+## 3. Commands Available in Both Modes
 
 The following commands can be used regardless of whether you are inside or outside an event:
 
@@ -92,8 +61,10 @@ Full details for these commands are in [Common Commands](UserGuideCommonCommands
 
 ---
 
-## 6. Next Sections
+## 4. Next Sections
 
+- [Getting Started](UserGuideGettingStarted.md)
 - [Common Commands](UserGuideCommonCommands.md)
+- [Command Fundamentals](UserGuideCommandFundamentals.md)
 - [Event Commands](UserGuideEvents.md)
 - [Participant Commands](UserGuideParticipants.md)

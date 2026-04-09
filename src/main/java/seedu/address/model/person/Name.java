@@ -8,15 +8,18 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
+    public static final int MAX_NAME_LENGTH = 100;
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain alphanumeric characters (including accented characters), spaces, "
+                    + "apostrophes, hyphens, and forward slashes. "
+                    + "Names must not be blank and cannot exceed " + MAX_NAME_LENGTH + " characters.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{L}\\p{N}][\\p{L}\\p{N} '\\-/]{0,99}";
 
     public final String fullName;
 

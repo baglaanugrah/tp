@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.EventCommandParserUtil;
 import seedu.address.model.Model;
@@ -58,7 +59,7 @@ public class AddEventCommand extends Command {
         }
 
         model.addEvent(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
     @Override

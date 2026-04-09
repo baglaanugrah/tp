@@ -592,6 +592,7 @@
 .stats-summary-card {
     -fx-padding: 18 22 18 22;
     -fx-min-height: 130px;
+    -fx-min-width: 210px;
     -fx-background-color: #13161e;
     -fx-background-radius: 8;
 }
@@ -650,7 +651,7 @@
 
 .stats-legend-label {
     -fx-text-fill: white;
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 1 0 1 0;
 }

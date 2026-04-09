@@ -24,18 +24,46 @@ public class NameTest {
         // null name
         assertThrows(NullPointerException.class, () -> Name.isValidName(null));
 
-        // invalid name
+        // invalid — blank/empty
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
 
-        // valid name
-        assertTrue(Name.isValidName("peter jack")); // alphabets only
+        // invalid — disallowed special characters
+        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
+        assertFalse(Name.isValidName("peter*")); // asterisk not allowed
+        assertFalse(Name.isValidName("peter@tan")); // @ not allowed
+        assertFalse(Name.isValidName("peter#1")); // # not allowed
+
+        // invalid — exceeds max length (101 characters)
+        assertFalse(Name.isValidName("a".repeat(101)));
+
+        // valid — standard names
+        assertTrue(Name.isValidName("peter jack")); // alphabets with space
         assertTrue(Name.isValidName("12345")); // numbers only
-        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
-        assertTrue(Name.isValidName("Capital Tan")); // with capital letters
-        assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric
+        assertTrue(Name.isValidName("Capital Tan")); // capital letters
+        assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long name
+
+        // valid — exactly at max length (100 characters)
+        assertTrue(Name.isValidName("a".repeat(100)));
+
+        // valid — apostrophes (e.g. Irish/English names)
+        assertTrue(Name.isValidName("O'Brian"));
+        assertTrue(Name.isValidName("O'Brien"));
+
+        // valid — slashes (e.g. Singaporean naming convention)
+        assertTrue(Name.isValidName("s/o Kumar"));
+        assertTrue(Name.isValidName("d/o Priya"));
+
+        // valid — accented characters
+        assertTrue(Name.isValidName("José"));
+        assertTrue(Name.isValidName("João"));
+        assertTrue(Name.isValidName("Tomáš"));
+        assertTrue(Name.isValidName("Renée"));
+
+        // valid — hyphens (e.g. hyphenated surnames)
+        assertTrue(Name.isValidName("Mary-Jane Watson"));
+        assertTrue(Name.isValidName("Jean-Luc Picard"));
     }
 
     @Test

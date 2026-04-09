@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -108,12 +109,16 @@ public class StatisticsPanel extends UiPart<Region> {
 
     private void addLegendRow(VBox container, String colorStyleClass, String text) {
         HBox row = new HBox(8);
+        row.setAlignment(Pos.TOP_LEFT);
 
         javafx.scene.shape.Rectangle colorBox = new javafx.scene.shape.Rectangle(14, 14);
         colorBox.getStyleClass().add(colorStyleClass);
 
         Label label = new Label(text);
         label.getStyleClass().add("stats-legend-label");
+        label.setWrapText(true);
+        label.setMaxWidth(220);
+        HBox.setHgrow(label, Priority.ALWAYS);
         row.getChildren().addAll(colorBox, label);
         container.getChildren().add(row);
     }
@@ -132,10 +137,14 @@ public class StatisticsPanel extends UiPart<Region> {
 
         if (summary.getTagCounts().isEmpty()) {
             tagDistributionText.setText("No tags found.");
+            tagDistributionText.setVisible(true);
+            tagDistributionText.setManaged(true);
             return;
         }
 
         tagDistributionText.clear();
+        tagDistributionText.setVisible(false);
+        tagDistributionText.setManaged(false);
 
         int tagCount = summary.getTagCounts().size();
 
@@ -301,6 +310,7 @@ public class StatisticsPanel extends UiPart<Region> {
     private StackPane createDonutContainer(PieChart chart, String centerText) {
         StackPane container = new StackPane();
         container.setPrefSize(180, 180);
+        container.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         container.getChildren().add(chart);
 
         double holeRadius = 50;

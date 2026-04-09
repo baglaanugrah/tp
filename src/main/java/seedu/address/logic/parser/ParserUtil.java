@@ -250,4 +250,24 @@ public class ParserUtil {
             throw new ParseException(Attendance.MESSAGE_CONSTRAINTS);
         }
     }
+
+    /**
+     * Parses check-in status for the {@code filter} command.
+     * Leading and trailing whitespaces are trimmed.
+     * Accepts only "yes" or "no" (case-insensitive).
+     *
+     * @throws ParseException if the given {@code attendance} is invalid.
+     */
+    public static Attendance parseFilterCheckinStatus(String attendance) throws ParseException {
+        requireNonNull(attendance);
+        String trimmed = attendance.trim().toLowerCase();
+
+        if (trimmed.equals("yes")) {
+            return new Attendance(true);
+        } else if (trimmed.equals("no")) {
+            return new Attendance(false);
+        } else {
+            throw new ParseException(Attendance.MESSAGE_CONSTRAINTS);
+        }
+    }
 }

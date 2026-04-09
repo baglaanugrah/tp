@@ -8,13 +8,15 @@ pageNav: 3
 
 This page describes commands that are used while you are inside an event and managing that event's participants.
 
+See [Command Fundamentals](UserGuideCommandFundamentals.md) for command syntax, prefix rules, index behavior, and common input mistakes.
+
 ---
 
 ## 1. Participant Management
 
 ### 1.1 Add command
 
-Used to add an applicant to the currently entered event.
+Used to add a participant to the currently entered event.
 
 #### Format
 `add n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] [tm/TEAM] [g/GITHUB_USERNAME] [r/RSVP_STATUS] [t/TAG]...`
@@ -37,7 +39,7 @@ Used to add an applicant to the currently entered event.
 
 ### 1.2 Edit command
 
-Used to edit the details of an existing applicant in the current event.
+Used to edit the details of an existing participant in the current event.
 
 #### Format
 `edit [INDEX] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GITHUB_USERNAME] [r/RSVP_STATUS] [tm/TEAM] [t/TAG]...`
@@ -64,7 +66,7 @@ Used to edit the details of an existing applicant in the current event.
 
 ### 1.3 Delete command
 
-Used to delete an applicant from the current event.
+Used to delete a participant from the current event.
 
 #### Format
 `delete [INDEX]`
@@ -73,7 +75,7 @@ Used to delete an applicant from the current event.
 `delete 1`
 
 #### Successful Execution
-`Deleted Applicant: ...`
+`Deleted Participant: ...`
 
 #### Notes
 - Can only be used inside an event.
@@ -81,7 +83,7 @@ Used to delete an applicant from the current event.
 
 ### 1.4 Clear command
 
-Used to clear all applicants from the current event.
+Used to clear all participants from the current event.
 
 #### Format
 `clear`
@@ -94,7 +96,7 @@ Used to clear all applicants from the current event.
 
 #### Notes
 - Can only be used inside an event.
-- This removes all applicants from the current event.
+- This removes all participants from the current event.
 
 ---
 
@@ -120,7 +122,7 @@ Used to assign a participant to a team.
 
 ### 2.2 Check-In command
 
-Used to mark an applicant as checked in.
+Used to mark a participant as checked in.
 
 #### Format
 `checkin [INDEX]`
@@ -148,53 +150,144 @@ checkin 3
 Used to filter the participant list using one criterion at a time.
 
 #### Format
+<tabs>
+<tab header="RSVP">
+
 `filter r/[RSVP_STATUS]`
+
+</tab>
+<tab header="Tag">
+
 `filter t/[TAG]`
+
+</tab>
+<tab header="Team">
+
 `filter team/[TEAM NAME]`
+
+</tab>
+<tab header="Check-in">
+
 `filter checkin/[yes|no]`
 
+</tab>
+</tabs>
+
 #### Example Usage
-`filter team/Alpha`
+<tabs>
+<tab header="RSVP">
+
+```
+filter r/yes
+```
+![Command](images/filter/rsvp_command.png)
+
+</tab>
+<tab header="Tag">
+
+```
+filter t/python
+```
+![Command](images/filter/tag_command.png)
+
+</tab>
+<tab header="Team">
+
+```
+filter team/Alpha
+```
+![Command](images/filter/team_command.png)
+
+</tab>
+<tab header="Check-in">
+
+```
+filter checkin/yes
+```
+![Command](images/filter/checkin_command.png)
+
+</tab>
+</tabs>
 
 #### Successful Execution
-Matching applicants are shown in the participant list.
+<tabs>
+<tab header="RSVP">
+
+![Result](images/filter/rsvp_output.png)
+
+</tab>
+<tab header="Tag">
+
+![Result](images/filter/tag_output.png)
+
+</tab>
+<tab header="Team">
+
+![Result](images/filter/team_output.png)
+
+</tab>
+<tab header="Check-in">
+
+![Result](images/filter/checkin_output.png)
+
+</tab>
+</tabs>
 
 #### Notes
 - Can only be used inside an event.
 - Supported prefixes are `r/`, `t/`, `team/`, and `checkin/`.
+- Only one filter criterion can be used per command (e.g., `filter r/yes t/python` is invalid).
+- Filtering is not cumulative across commands; each `filter` command replaces the previous filter/search.
+- `checkin/` accepts `yes`, `no`, `checked-in`, `not checked-in`, `true`, or `false` (case-insensitive).
 
 ### 3.2 View command
 
-Used to show the details of a selected applicant.
+Used to show the details of a selected participant.
 
 #### Format
-`view [INDEX]`
+```
+view [INDEX]
+```
 
 #### Example Usage
-`view 1`
+```
+view 1
+```
+![Command](images/view/command.png)
 
 #### Successful Execution
-`Viewed Applicant [1]`
+![Result](images/view/output.png)
+
 
 #### Notes
-- Can only be used inside an event.
-- Index must be a positive integer.
+- This command can only be used inside an event.
+- `INDEX` must be a positive integer.
+- The `INDEX` must refer to a participant currently shown in the displayed list, including filtered or searched results.
+- The command fails if the `INDEX` is invalid or out of range.
 
 ### 3.3 Statistics command
 
 Used to display the current event's participant statistics summary.
 
 #### Format
-`statistics`
+```
+statistics
+```
 
 #### Example Usage
-`statistics`
+```
+statistics
+```
+![Command](images/statistics/command.png)
 
 #### Successful Execution
-`Showing the event's statistics summary.`
+![Result](images/statistics/output.png)
 
 #### Notes
 - Can only be used inside an event.
+- This is a read-only command; it does not edit participant data.
+- If you want to return to normal participant list operations, use commands like `list`, `filter`, `search`, etc.
+- The command format is `statistics` only (no index or prefixes needed).
 
 ---
 
@@ -202,7 +295,7 @@ Used to display the current event's participant statistics summary.
 
 ### 4.1 Import command
 
-Used to import applicants from a CSV file into the current event.
+Used to import participants from a CSV file into the current event.
 
 #### Format
 `import [FILE_PATH]`
@@ -212,7 +305,7 @@ Used to import applicants from a CSV file into the current event.
 `import data/participants.csv`
 
 #### Successful Execution
-Applicants from the CSV file are imported into the current event. Invalid rows and duplicates are skipped and reported.
+Participants from the CSV file are imported into the current event. Invalid rows and duplicates are skipped and reported.
 
 #### Notes
 - Can only be used inside an event.
@@ -222,7 +315,7 @@ Applicants from the CSV file are imported into the current event. Invalid rows a
 
 ### 4.2 Export command
 
-Used to export applicants from the current event to a CSV file.
+Used to export participants from the current event to a CSV file.
 
 #### Format
 `export [FILE_PATH]`
@@ -270,4 +363,5 @@ leave event
 
 - [Back to Introduction, Modes, and Common Commands](UG.md)
 - [Back to Common Commands](UserGuideCommonCommands.md)
+- [Back to Command Fundamentals](UserGuideCommandFundamentals.md)
 - [Back to Event Commands](UserGuideEvents.md)

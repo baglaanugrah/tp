@@ -132,4 +132,5 @@ The application is exited.
 
 - [Back to Introduction, Modes, and Common Commands](UG.md)
 - [Back to Common Commands](UserGuideCommonCommands.md)
+- [Back to Command Fundamentals](UserGuideCommandFundamentals.md)
 - [Go to Participant Commands](UserGuideParticipants.md)

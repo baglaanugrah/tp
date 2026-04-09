@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
@@ -17,7 +18,7 @@
       <padding>
         <Insets top="20" right="20" bottom="20" left="20" />
       </padding>
-      <HBox spacing="16" fillHeight="true">
+      <FlowPane hgap="16" vgap="16" prefWrapLength="1100">
         <VBox spacing="4" styleClass="stats-summary-card" HBox.hgrow="ALWAYS" maxWidth="Infinity">
           <Label text="Total participants" styleClass="stats-summary-title" />
           <Label fx:id="totalParticipantsValue" styleClass="stats-summary-value" />
@@ -34,22 +35,22 @@
           <Label text="Teams" styleClass="stats-summary-title" />
           <Label fx:id="teamsValue" styleClass="stats-summary-value" />
         </VBox>
-      </HBox>
+      </FlowPane>
 
       <Label text="Engagement Summary" styleClass="stats-main-heading" />
 
-      <HBox spacing="32">
-        <VBox spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity" minWidth="0">
+      <HBox spacing="32" fillHeight="false">
+        <VBox spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity" minWidth="0" prefWidth="0">
           <Label text="RSVP Summary" styleClass="stats-sub-heading" />
-          <HBox spacing="24" alignment="CENTER">
+          <HBox spacing="24" alignment="CENTER_LEFT" fillHeight="false">
             <HBox fx:id="rsvpChartPlaceholder" spacing="10" />
             <VBox fx:id="rsvpLegendBox" spacing="12" alignment="CENTER_LEFT" />
           </HBox>
         </VBox>
 
-        <VBox spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity" minWidth="0">
+        <VBox spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity" minWidth="0" prefWidth="0">
           <Label text="Check-in Summary" styleClass="stats-sub-heading" />
-          <HBox spacing="24" alignment="CENTER">
+          <HBox spacing="24" alignment="CENTER_LEFT" fillHeight="false">
             <HBox fx:id="checkinChartPlaceholder" spacing="10" />
             <VBox fx:id="checkinLegendBox" spacing="12" alignment="CENTER_LEFT" />
           </HBox>
@@ -58,9 +59,10 @@
 
       <Label text="Other Statistics (Skill Distribution)" styleClass="stats-main-heading" />
       <HBox fx:id="tagChartPlaceholder" spacing="10" HBox.hgrow="ALWAYS" fillHeight="true" />
-      <FlowPane fx:id="tagLegendBox" hgap="16" vgap="10" prefWrapLength="900" />
+      <FlowPane fx:id="tagLegendBox" hgap="16" vgap="10" prefWrapLength="760" />
       <TextArea fx:id="tagDistributionText" editable="false" wrapText="true"
-                styleClass="result-display" VBox.vgrow="ALWAYS" />
+                visible="false" managed="false"
+                styleClass="result-display" VBox.vgrow="NEVER" />
     </VBox>
   </content>
 </ScrollPane>

@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -36,11 +37,35 @@ public class PersonMatchesFilterPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        boolean matchesRsvp = rsvpFilter.isEmpty() || person.getRsvpStatus().equals(rsvpFilter.get());
-        boolean matchesTags = tagFilter.isEmpty() || person.getTags().containsAll(tagFilter);
-        boolean matchesTeam = teamFilter.isEmpty() || person.getTeam().equals(teamFilter);
-        boolean matchesCheckin = checkinFilter.isEmpty() || person.getCheckInStatus().equals(checkinFilter.get());
+        boolean matchesRsvp = rsvpFilter.isEmpty() || matchesRsvp(person, rsvpFilter.get());
+        boolean matchesTags = tagFilter.isEmpty() || matchesTags(person, tagFilter);
+        boolean matchesTeam = teamFilter.isEmpty() || matchesTeam(person, teamFilter.get());
+        boolean matchesCheckin = checkinFilter.isEmpty() || matchesCheckin(person, checkinFilter.get());
         return matchesRsvp && matchesTags && matchesTeam && matchesCheckin;
+    }
+
+    private boolean matchesRsvp(Person person, RsvpStatus rsvpStatus) {
+        return person.getRsvpStatus().toString().toLowerCase(Locale.ROOT)
+                .equalsIgnoreCase(rsvpStatus.toString().toLowerCase(Locale.ROOT));
+    }
+
+    private boolean matchesTags(Person person, Set<Tag> tags) {
+        if (tags.isEmpty()) {
+            return true;
+        }
+        String requested = tags.iterator().next().tagName.toLowerCase(Locale.ROOT);
+        return person.getTags().stream()
+                .anyMatch(tag -> tag.tagName.toLowerCase(Locale.ROOT).equals(requested));
+    }
+
+    private boolean matchesTeam(Person person, Team team) {
+        return person.getTeam()
+        .map(personTeam -> personTeam.teamName.equalsIgnoreCase(team.teamName))
+        .orElse(false);
+    }
+
+    private boolean matchesCheckin(Person person, Attendance checkinStatus) {
+        return person.getCheckInStatus().equals(checkinStatus);
     }
 
     @Override

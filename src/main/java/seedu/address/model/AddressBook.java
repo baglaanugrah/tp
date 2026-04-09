@@ -87,6 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 person.getPhone(),
                 person.getEmail(),
                 person.getAddress(),
+                person.getTeam(),
                 person.getTags(),
                 new Attendance(true),
                 person.getGitHub().orElse(null),

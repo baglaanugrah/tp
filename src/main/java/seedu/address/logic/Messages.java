@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
@@ -59,5 +60,21 @@ public class Messages {
         person.getTags().forEach(builder::append);
         return builder.toString();
     }
+
+    /**
+     * Formats the {@code event} for display to the user.
+     */
+    public static String format(Event event) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(event.getName())
+                .append("; Date: ")
+                .append(event.getDate())
+                .append("; Location: ")
+                .append(event.getLocation().orElse("No Location"))
+                .append("; Description: ")
+                .append(event.getDescription().orElse("No Description"));
+        return builder.toString();
+    }
+
 
 }

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.EventBook;
 import seedu.address.model.Model;
@@ -45,10 +46,25 @@ public class AddEventCommandTest {
 
         CommandResult result = new AddEventCommand(VALID_EVENT).execute(modelStub);
 
-        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, VALID_EVENT),
+        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, Messages.format(VALID_EVENT)),
                 result.getFeedbackToUser());
         assertEquals(1, modelStub.eventsAdded.size());
         assertEquals(VALID_EVENT, modelStub.eventsAdded.get(0));
+    }
+
+    @Test
+    public void execute_successMessage_doesNotContainClassPath() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        CommandResult result = new AddEventCommand(VALID_EVENT).execute(modelStub);
+
+        // message should contain the event name and date
+        assertTrue(result.getFeedbackToUser().contains("Tech Meetup"));
+        assertTrue(result.getFeedbackToUser().contains("Date:"));
+        assertTrue(result.getFeedbackToUser().contains("Location:"));
+        assertTrue(result.getFeedbackToUser().contains("Description:"));
+
+        // message should NOT contain the Java class path
+        assertFalse(result.getFeedbackToUser().contains("seedu.address.model.event.Event"));
     }
 
     @Test
