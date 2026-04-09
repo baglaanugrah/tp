@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+title Filter feature — class diagram
+
+skinparam shadowing false
+skinparam roundCorner 6
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+skinparam classFontColor #FFFFFF
+skinparam classBorderColor #1e293b
+skinparam arrowThickness 1.1
+skinparam arrowColor #475569
+skinparam packageStyle rectangle
+skinparam packageBorderColor #94a3b8
+skinparam packageFontStyle bold
+
+top to bottom direction
+
+package "Model" #fce7e9 {
+    interface Model #9D0012
+    class PersonMatchesFilterPredicate <<Predicate>> #9D0012
+    note bottom of PersonMatchesFilterPredicate
+        Built during parsing; tests Person instances.
+    end note
+}
+
+package "Logic" #e8eaf6 {
+    together {
+        abstract class Command #3333C4
+        class FilterCommand #3333C4
+    }
+    together {
+        interface Parser #3333C4
+        class FilterCommandParser #3333C4
+    }
+}
+
+Command <|-- FilterCommand
+Parser <|.. FilterCommandParser
+FilterCommandParser ..> FilterCommand : <<create>>
+
+FilterCommand *- "1" PersonMatchesFilterPredicate : predicate
+FilterCommand ..> Model : <<use>>
+
+@enduml
