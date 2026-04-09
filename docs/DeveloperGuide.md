@@ -177,7 +177,7 @@ The filter feature is implemented across three main areas:
 * **Command layer (`FilterCommand`)**: checks event context and applies the predicate via `Model#updateFilteredPersonList(...)`.
 * **Model layer (`PersonMatchesFilterPredicate` + `Model`)**: evaluates each `Person` and updates the filtered observable participant list exposed to the UI.
 
-<puml src="diagrams/FilterFeatureClassDiagram.puml" width="640" />
+<puml src="diagrams/FilterFeatureClassDiagram.puml" width="500" />
 
 #### Implementation details
 
