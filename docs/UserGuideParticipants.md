@@ -23,15 +23,19 @@ Used to add a participant to the currently entered event.
 
 #### Example Usage
 `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 tm/Development g/johndoe r/yes t/friends`
+![Command](images/add/command.png)
 
 #### Successful Execution
-`New participant added: ...`
+`New applicant added: ...`
+![Command](images/add/result.png)
 
 #### Notes
 - Can only be used inside an event.
 - Name, phone, email, and address are required.
-- `RSVP_STATUS` must be `yes`, `no`, or `pending`.
-- Team names must be alphanumeric and at most 15 characters.
+- `NAME` can contain alphanumeric characters (including accented characters e.g. José, Tomáš), spaces, apostrophes (`'`), hyphens (`-`), and forward slashes (`/`) e.g. `O'Brian`, `s/o Kumar`. Names cannot exceed 100 characters.
+- `RSVP_STATUS` must be `yes`, `no`, or `pending` (case-insensitive). Defaults to `pending` if not provided.
+- `TEAM` must be alphanumeric and at most 15 characters.
+- Two participants are considered duplicates if they share the same name and either the same phone number or the same email. Duplicate participants cannot be added to the same event.
 
 ### 1.2 Edit command
 
@@ -42,14 +46,23 @@ Used to edit the details of an existing participant in the current event.
 
 #### Example Usage
 `edit 1 p/91234567 e/johndoe@example.com`
+![Command](images/edit/command.png)
 
 #### Successful Execution
-`Edited Participant: ...`
+`Edited Applicant: ...`
+![Command](images/edit/result.png)
 
 #### Notes
 - Can only be used inside an event.
 - Index must be a positive integer.
 - At least one field to edit must be provided.
+- Existing values will be overwritten by the new values.
+- `NAME` follows the same constraints as the `add` command — alphanumeric characters (including accented), spaces, apostrophes, hyphens, and forward slashes. Cannot exceed 100 characters.
+- `RSVP_STATUS` must be `yes`, `no`, or `pending` (case-insensitive).
+- `TEAM` must be alphanumeric and at most 15 characters.
+- Clear all tags by typing `t/` with nothing after it.
+- Clear the team by typing `tm/` with nothing after it.
+- Editing a participant to match another participant's name and phone or email will be rejected as a duplicate.
 
 ### 1.3 Delete command
 

@@ -21,7 +21,10 @@ your event management tasks done faster than traditional GUI apps.
   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 2. Download the latest `.jar` file from [Releases](https://github.com/AY2526S2-CS2103T-W11-1/tp/releases).
 3. Copy the file to the folder you want to use as the *home folder* for TeamEventPro. 
-4. Open a command terminal, `cd` into the folder containing the jar file, and run `java -jar addressbook.jar`.  
+4. Open a command terminal, `cd` into the folder containing the jar file, and run `java -jar addressbook.jar`.
+   > **Note:** Double-clicking the jar file may not work on all systems. If the app does not launch, use the terminal command above.
+   > **Note:** Ensure the folder is not write-protected. TeamEventPro needs to write data files to its home folder.
+
 
   A GUI similar to the below should appear in a few seconds.   
 
@@ -99,8 +102,10 @@ Adds an event to the event book.
 
 Format: `addevent n/NAME d/DATE [l/LOCATION] [desc/DESCRIPTION]`
 
+- `NAME` must start with an alphanumeric character and can only contain alphanumeric characters and spaces. It must not be blank.
 - `DATE` must be in `YYYY-MM-DD` format.
 - You must be in the event list view to use this command.
+- Duplicate events with the same name are not allowed.
 
 Examples:
 
@@ -168,8 +173,10 @@ Adds an applicant to the address book. Supports GitHub username and RSVP status 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [tm/TEAM] [g/GITHUB_USERNAME] [r/RSVP_STATUS] [t/TAG]…​`
 
 - You must enter an event first using `enter event INDEX`.
-- `RSVP_STATUS` must be `yes`, `no`, or `pending` (case-insensitive).
+- `NAME` can contain alphanumeric characters (including accented characters), spaces, apostrophes (`'`), hyphens (`-`), and forward slashes (`/`). Names cannot exceed 100 characters.
+- `RSVP_STATUS` must be `yes`, `no`, or `pending` (case-insensitive). Defaults to `pending` if not provided.
 - `TEAM` must be alphanumeric and at most 15 characters.
+- Two participants are considered duplicates if they share the same name and either the same phone number or the same email.
 
 
 
@@ -263,6 +270,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tm/TEAM] [g/GITHUB
 - You can remove all the applicant's tags by typing `t/` without specifying any tags after it.
 - You can clear the team by typing `tm/` with nothing after it.
 - You must enter an event first using `enter event INDEX`.
+- - `NAME` follows the same constraints as the `add` command — alphanumeric characters (including accented), spaces, apostrophes, hyphens, and forward slashes. Cannot exceed 100 characters.
+- Editing a participant to match another participant's name and phone or email will be rejected as a duplicate.
 
 Examples:
 
@@ -374,7 +383,7 @@ TeamEventPro data are saved to the hard disk automatically after any command tha
 
 ### Editing the data file
 
-TeamEventPro data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users can update data directly by editing that data file.
+TeamEventPro data are saved automatically as a JSON file `[JAR file location]/data/eventbook.json`. Advanced users can update data directly by editing that data file.
 
 
 
