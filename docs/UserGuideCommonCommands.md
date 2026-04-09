@@ -121,12 +121,12 @@ Used to switch the application theme.
 `switchmode [dark|light]`
 
 ### Example Usage
-`switchmode dark`
+`switchmode light`
 
 ![Command](images/switchmode/command.png)
 
 ### Successful Execution
-`Switched to dark mode.`
+`Switched to light mode.`
 
 ![Result](images/switchmode/result.png)
 
