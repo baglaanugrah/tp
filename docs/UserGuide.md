@@ -114,12 +114,13 @@ Examples:
 
 ### Editing an event : `editevent`
 
-Edits an existing event in the event list. Existing values will be overwritten by the input values.
+Edits one or more selected fields of an existing event in the event list. Fields not specified in the command will remain unchanged.
 
 Format: `editevent INDEX [n/NAME] [d/DATE] [l/LOCATION] [desc/DESCRIPTION]`
 
 - Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list.
 - The index **must be a positive integer** 1, 2, 3, …
+- You only need to provide the field or fields you want to edit.
 - At least one optional field must be provided.
 - You must be in the event list view to use this command.
 - You can clear the location by typing `l/` with no location text after it. Trailing spaces are ignored, so `l/ ` also clears the location.
@@ -129,6 +130,8 @@ Examples:
 
 - `editevent 1 n/Tech Meetup 2026`
 - `editevent 2 d/2026-09-01 l/NUS Innovation 4.0`
+- `editevent 2 l/NUS COM2` — Updates only the event location.
+- `editevent 2 desc/Updated event description` — Updates only the event description.
 - `editevent 3 l/ desc/`
 
 ### Deleting an event : `deleteevent`

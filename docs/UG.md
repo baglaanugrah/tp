@@ -399,17 +399,31 @@ addevent n/Tech Meetup 2026 d/2026-06-15 l/NUS Techno Edge desc/Annual tech netw
 ### 2.1 Edit Event Command
 <a id="cmd-editevent"></a>
 
-Used to edit the details of an existing event in the event list.
+Used to edit one or more selected details of an existing event in the event list.
 
 #### Format
 `editevent [INDEX] [n/EVENT NAME] [d/DATE] [l/LOCATION] [desc/DESCRIPTION]`
 
 #### Example Usage
+Edit multiple fields:
+
 ```
 editevent 1 n/Hack Night d/2026-08-20 l/NUS COM1 desc/Bring your laptop
 ```
 
 ![Command](images/edit-event/command.png)
+
+Edit only the location:
+
+```
+editevent 1 l/NUS COM2
+```
+
+Edit only the description:
+
+```
+editevent 1 desc/Updated event description
+```
 
 #### Successful Execution
 
@@ -418,6 +432,7 @@ editevent 1 n/Hack Night d/2026-08-20 l/NUS COM1 desc/Bring your laptop
 #### Notes
 - Can only be used outside an event.
 - Index must be a positive integer.
+- You only need to provide the field or fields you want to edit. Fields not specified in the command will remain unchanged.
 - At least one field to edit must be provided.
 - Location can be cleared with `l/` followed by no location text. Trailing spaces are ignored, so `l/ ` also clears the location.
 - Description can be cleared with `desc/` followed by no description text. Trailing spaces are ignored, so `desc/ ` also clears the description.
