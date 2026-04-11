@@ -18,7 +18,9 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.PersonBuilder;
 
 
 public class CheckInCommandTest {
@@ -51,6 +53,17 @@ public class CheckInCommandTest {
         CheckInCommand checkInCommand = new CheckInCommand(outOfBoundIndex);
 
         assertCommandFailure(checkInCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_alreadyCheckedIn_throwsCommandException() {
+        Person originalPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person checkedInPerson = new PersonBuilder(originalPerson).withStatus(new Attendance(true)).build();
+        model.setPerson(originalPerson, checkedInPerson);
+
+        CheckInCommand checkInCommand = new CheckInCommand(INDEX_FIRST_PERSON);
+
+        assertCommandFailure(checkInCommand, model, CheckInCommand.MESSAGE_PERSON_ALREADY_CHECKED_IN);
     }
 
     @Test
