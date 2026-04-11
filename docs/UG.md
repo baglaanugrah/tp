@@ -329,6 +329,9 @@ Inside an event: matching participants are shown in the participant list.
 #### Notes
 - Can be used in any mode.
 - The results depend on the current mode.
+- Outside an event, `search` checks event name, date, location, and description.
+- Inside an event, `search` checks participant name, phone, address, email, team, GitHub username, and check-in status.
+- Matching is case-insensitive and works on substrings.
 
 ---
 
