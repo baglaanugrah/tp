@@ -17,6 +17,9 @@ public class ResultDisplay extends UiPart<Region> {
     @FXML
     private Label resultDisplay;
 
+    /**
+     * Creates a {@code ResultDisplay}.
+     */
     public ResultDisplay() {
         super(FXML);
         StackPane root = (StackPane) getRoot();

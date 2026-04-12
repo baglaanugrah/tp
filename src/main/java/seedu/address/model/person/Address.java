@@ -12,8 +12,8 @@ public class Address {
     /** Maximum allowed length for the entire address string (inclusive). */
     public static final int MAX_LENGTH = 100;
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses should not be blank and " +
-     "must be at most " + MAX_LENGTH + " characters long (inclusive).";
+    public static final String MESSAGE_CONSTRAINTS = "Addresses should not be blank and "
+            + "must be at most " + MAX_LENGTH + " characters long (inclusive).";
 
     /*
      * The first character of the address must not be a whitespace,
