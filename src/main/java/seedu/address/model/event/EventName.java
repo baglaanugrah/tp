@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class EventName {
     public static final String MESSAGE_CONSTRAINTS =
-            "Event names should only contain alphanumeric characters and spaces, and should not be blank.";
+            "Event names must start with an alphanumeric character and should not be blank.";
 
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Print}]*";
     public final String fullName;
 
     /**
