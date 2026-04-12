@@ -671,6 +671,10 @@ Extensions:
 9. The system must function fully offline with no internet connection required.
 10. Participant names must support Unicode characters to accommodate international names including accented characters (e.g. José, Tomáš), names with apostrophes (e.g. O'Brian), and names with forward slashes (e.g. s/o Kumar).
 
+### Known limitations
+
+- **Phone validation:** Participant phone numbers are restricted to **digits only** (minimum length per `Phone` validation). **Country-code prefixes** (e.g. `+65`), spaces, and punctuation are **rejected**. This behaviour is consistent with the user guide but is **overly strict** for users who naturally type international-format numbers; a future iteration could accept normalised E.164-style input or strip common separators while preserving data integrity.
+
 
 ### Glossary
 

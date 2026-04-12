@@ -679,88 +679,26 @@ checkin 3
 Used to filter the participant list using one criterion at a time.
 
 #### Format
-<tabs>
-<tab header="RSVP">
 
-`filter r/[RSVP_STATUS]`
-
-</tab>
-<tab header="Tag">
-
-`filter t/[TAG]`
-
-</tab>
-<tab header="Team">
-
-`filter team/[TEAM NAME]`
-
-</tab>
-<tab header="Check-in">
-
-`filter checkin/[yes|no]`
-
-</tab>
-</tabs>
+- RSVP: `filter r/[RSVP_STATUS]`
+- Tag: `filter t/[TAG]`
+- Team: `filter team/[TEAM NAME]`
+- Check-in: `filter checkin/[yes|no]`
 
 #### Example Usage
-<tabs>
-<tab header="RSVP">
 
 ```
 filter r/yes
-```
-![Command](images/filter/rsvp_command.png)
-
-</tab>
-<tab header="Tag">
-
-```
 filter t/python
-```
-![Command](images/filter/tag_command.png)
-
-</tab>
-<tab header="Team">
-
-```
 filter team/Alpha
-```
-![Command](images/filter/team_command.png)
-
-</tab>
-<tab header="Check-in">
-
-```
 filter checkin/yes
 ```
-![Command](images/filter/checkin_command.png)
-
-</tab>
-</tabs>
 
 #### Successful Execution
-<tabs>
-<tab header="RSVP">
+
+
 
 ![Result](images/filter/rsvp_output.png)
-
-</tab>
-<tab header="Tag">
-
-![Result](images/filter/tag_output.png)
-
-</tab>
-<tab header="Team">
-
-![Result](images/filter/team_output.png)
-
-</tab>
-<tab header="Check-in">
-
-![Result](images/filter/checkin_output.png)
-
-</tab>
-</tabs>
 
 #### Notes
 - Can only be used inside an event.
@@ -781,7 +719,6 @@ Used to show the details of a selected participant.
 ```
 view 1
 ```
-![Command](images/view/command.png)
 
 #### Successful Execution
 ![Result](images/view/output.png)
@@ -805,7 +742,6 @@ Used to display the current event's participant statistics summary.
 ```
 statistics
 ```
-![Command](images/statistics/command.png)
 
 #### Successful Execution
 ![Result](images/statistics/output.png)
@@ -950,4 +886,13 @@ participant inside the app. Required fields and other optional fields still fail
 GitHub looks wrong after load, **edit** the participant in TeamEventPro or restore from backup rather than assuming the
 file still contains the old text. Using **commands or CSV import** instead of raw JSON helps keep values within the
 documented rules.
+
+## 6. Phone numbers do not accept country codes or symbols
+
+The `p/` field only allows **digits** (at least three), with **no** plus sign, spaces, or dashes. That keeps parsing and
+storage simple and matches the current user guide, but it is **stricter than many people expect**: numbers such as
+`+65 9123 4567` or `+6591234567` are **rejected** even though they are realistic in everyday use.
+
+**What we recommend:** enter the **national** number without the country prefix (for example digits only, as in the
+command examples).
 
