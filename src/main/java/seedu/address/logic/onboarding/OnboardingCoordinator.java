@@ -48,7 +48,7 @@ public class OnboardingCoordinator {
      */
     public String getWelcomeMessage(Logic logic) {
         return "Welcome! Thank you for using TeamEventPro. This tutorial will help you get familiar with the app by "
-                + "introducing you to some simple commands. If you are already familiar with the app, you can skip the"
+                + "introducing you to some simple commands. If you are already familiar with the app, you can skip the "
                 + "tutorial by clicking on the button in the Help menu." + "\n\n"
                 + currentStepReminder(logic);
     }
@@ -243,7 +243,8 @@ public class OnboardingCoordinator {
         String team = tutorialTeamName != null && !tutorialTeamName.isBlank() ? tutorialTeamName : "your team";
         return "Team assigned: \"" + team + "\" for \"" + participantNameOrPlaceholder() + "\".\n\n"
                 + "Last step — Step " + currentStep.stepNumber() + "/" + TOTAL_STEPS + ":\n"
-                + instructionForCurrentStep(logic);
+                + instructionForCurrentStep(logic) + "\n"
+                + "If you wish to leave the event mode after executing this command, enter `leave event` ";
     }
 
     /**

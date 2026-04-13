@@ -27,6 +27,7 @@ public class CheckInCommand extends Command {
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
     public static final String MESSAGE_CHECK_IN_PERSON_SUCCESS = "Checked-in person: %1$s";
+    public static final String MESSAGE_PERSON_ALREADY_CHECKED_IN = "This participant is already checked in.";
 
     private final Index index;
 
@@ -59,6 +60,9 @@ public class CheckInCommand extends Command {
         }
 
         Person personToCheckIn = lastShownList.get(index.getZeroBased());
+        if (personToCheckIn.getCheckInStatus().getStatus()) {
+            throw new CommandException(MESSAGE_PERSON_ALREADY_CHECKED_IN);
+        }
         model.checkInPerson(personToCheckIn);
         return new CommandResult(String.format(MESSAGE_CHECK_IN_PERSON_SUCCESS, Messages.format(personToCheckIn)));
     }

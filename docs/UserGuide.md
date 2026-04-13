@@ -102,7 +102,7 @@ Adds an event to the event book.
 
 Format: `addevent n/NAME d/DATE [l/LOCATION] [desc/DESCRIPTION]`
 
-- `NAME` must start with an alphanumeric character and can only contain alphanumeric characters and spaces. It must not be blank.
+- `NAME` must start with an alphanumeric character and can contain alphanumeric characters, spaces, hyphens (`-`), apostrophes (`'`), commas, periods, and other common special characters. It must not be blank.
 - `DATE` must be in `YYYY-MM-DD` format.
 - You must be in the event list view to use this command.
 - Duplicate events with the same name are not allowed.
@@ -174,11 +174,10 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [tm/TEAM] [g/GITHUB_USERNAM
 
 - You must enter an event first using `enter event INDEX`.
 - `NAME` can contain alphanumeric characters (including accented characters), spaces, apostrophes (`'`), hyphens (`-`), and forward slashes (`/`). Names cannot exceed 100 characters.
+- `PHONE_NUMBER` must contain only digits, and be between 3 and 17 digits long.
 - `RSVP_STATUS` must be `yes`, `no`, or `pending` (case-insensitive). Defaults to `pending` if not provided.
 - `TEAM` must be alphanumeric and at most 15 characters.
-- `EMAIL` must be a valid `local-part@domain` address as enforced by the app and **must not exceed 64 characters** (including `@` and the domain).
-- `ADDRESS` is free text but **must not be blank** (after trimming) and **must not exceed 100 characters**.
-- Two participants are considered duplicates if they share the same name and either the same phone number or the same email.
+- Two participants are considered duplicates if they share the same name (case-insensitive) and either the same phone number or the same email.
 
 
 

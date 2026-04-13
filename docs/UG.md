@@ -38,6 +38,7 @@ pageNav: 0
   - [Import : `import`](#cmd-import)
   - [Export : `export`](#cmd-export)
   - [Leave Event : `leave event`](#cmd-leave-event)
+- [Known Issues](#known-issues)
 
 ---
 
@@ -136,7 +137,7 @@ For macOS-specific setup guidance, follow the prescribed JDK instructions in the
 
 - On first launch, complete the onboarding tutorial.
 - **Sample data** is included on first launch so new users can explore the app with realistic example data before adding their own.
-- Use the command box at the bottom of the app to run commands.
+- Use the command box at the top of the app to run commands.
 - Press Enter after each command.
 
 ---
@@ -163,6 +164,7 @@ Read this once before using [Event Commands](#event-commands) or [Participant Co
 - **Square brackets `[` `]`** mean that part is **optional** in the written format. Anything **not** in brackets is **required** for that command (unless two format lines are given as alternatives, e.g. `import`).
 - Items followed by `...` can be used multiple times.
 - For prefixed arguments, parameter order usually does not matter unless stated otherwise.
+- Tags that are enclosed in square brackets are optional.
 - Indexes refer to the numbers shown in the displayed list.
 - Dates should follow the format `YYYY-MM-DD`.
 
@@ -174,10 +176,18 @@ TeamEventPro operates in two modes:
 - **Outside an event**: event-level commands such as `addevent`, `editevent`, `deleteevent`, `enter event`, `list`, `search`.
 - **Inside an event**: participant-level commands such as `add`, `edit`, `delete`, `assign`, `filter`, `checkin`, `view`, `statistics`, `list`, `search`, `leave event`.
 
+TeamEventPro tracks two different participant statuses:
+
+- **RSVP status** shows whether a participant said they will attend: `yes`, `no`, or `pending`.
+- **Check-in status** shows whether a participant has actually arrived at the event: `yes` or `no`.
+
+These two statuses are different. For example, a participant may have RSVP = `yes` but Check-in = `no` if they said they would attend but have not arrived yet.
+
 Most commands follow one of these shapes:
 - `COMMAND` with no arguments (e.g. `list`, `help`, `statistics`).
 - `COMMAND INDEX …` or `COMMAND KEYWORD INDEX` when an index is required (e.g. `delete 2`, `enter event 1`).
 - `COMMAND` plus **required** prefixes without brackets and **optional** prefixes in `[` `]` (see each command’s Format line).
+### RSVP vs Check-In
 
 ---
 
@@ -253,7 +263,6 @@ Used to open the help window and view usage instructions.
 ```
 help
 ```
-![Command](images/help/command.png)
 
 #### Successful Execution
 Opens a new window containing the User Guide link.
@@ -399,7 +408,8 @@ addevent n/Tech Meetup 2026 d/2026-06-15 l/NUS Techno Edge desc/Annual tech netw
 - `NAME` must start with an alphanumeric character and can only contain alphanumeric characters and spaces. It must not be blank.
 - `DATE` must follow the format `YYYY-MM-DD` e.g. `2026-06-15`.
 - `LOCATION` and `DESCRIPTION` are optional.
-- Duplicate events with the same name are not allowed.
+- Event names are case-sensitive.
+- Duplicate-looking event names may still be valid because related sessions can happen at different locations or at different times on the same day.
 
 ---
 
@@ -471,7 +481,6 @@ Used to enter an event and switch into participant-management mode for that even
 ```
 enter event 1
 ```
-![Command](images/enter-event/command.png)
 
 #### Successful Execution
 
@@ -612,7 +621,6 @@ Used to clear all participants from the current event.
 ```
 clear
 ```
-![Command](images/clear/clear-command.png)
 
 #### Successful Execution
 `Address book has been cleared!`
@@ -654,7 +662,9 @@ assign 2 team/Alpha
 ### 2.2 Check-In Command
 <a id="cmd-checkin"></a>
 
-Used to mark a participant as checked in.
+Used to mark that a participant has physically arrived at the event.
+
+This is different from RSVP status, which records whether the participant said they would attend.
 
 #### Format
 `checkin INDEX`
@@ -663,7 +673,6 @@ Used to mark a participant as checked in.
 ```
 checkin 3
 ```
-![Command](images/checkin/command.png)
 
 #### Successful Execution
 
@@ -847,7 +856,6 @@ Used to leave the current event and return to the event list.
 ```
 leave event
 ```
-![Command](images/leave-event/command.png)
 
 #### Successful Execution
 
@@ -860,6 +868,31 @@ leave event
 ---
 
 # Known Issues
+
+## 1. Participant command errors outside an event may show format errors first
+
+If a participant-related command such as `add`, `edit`, `delete`, `assign`, `checkin`, or `filter` is entered
+outside an event with an invalid format, the app may first show a command format error instead of telling the
+user to enter an event first.
+
+This happens because the command input is parsed before the app checks whether the user is currently inside an
+event. As a result, malformed input can fail at the parser stage before the mode-related validation is reached.
+
+## 2. Undo is not fully supported for some data-changing operations
+
+Some operations do not currently support undo correctly. Examples include `checkin`, `clear`, `delete`, and
+`deleteevent`.
+
+Once these commands are executed, there may be no built-in way to restore the previous state through an undo
+command. Users should therefore be careful when performing destructive or state-changing actions, especially
+when clearing participants or deleting events.
+
+## 3. Commands do not auto-clear after an error
+
+If a command fails, the command text may remain in the command box instead of clearing automatically.
+
+This means users may need to manually edit or remove the failed command before trying again. This is mainly a
+usability issue, but it can be slightly inconvenient when testing multiple command variations in a row.
 
 ## 4. A corrupted or unreadable `eventbook.json` can be overwritten on the next save
 
@@ -901,4 +934,3 @@ storage simple and matches the current user guide, but it is **stricter than man
 
 **What we recommend:** enter the **national** number without the country prefix (for example digits only, as in the
 command examples).
-
