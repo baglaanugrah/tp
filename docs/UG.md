@@ -127,7 +127,7 @@ For macOS-specific setup guidance, follow the prescribed JDK instructions in the
 3. Open a terminal in that folder.
 4. Run:
 
-   `java -jar addressbook.jar`
+   `java -jar teameventpro.jar`
 
 5. Wait for the application window to open.
 
@@ -164,7 +164,6 @@ Read this once before using [Event Commands](#event-commands) or [Participant Co
 - **Square brackets `[` `]`** mean that part is **optional** in the written format. Anything **not** in brackets is **required** for that command (unless two format lines are given as alternatives, e.g. `import`).
 - Items followed by `...` can be used multiple times.
 - For prefixed arguments, parameter order usually does not matter unless stated otherwise.
-- Tags that are enclosed in square brackets are optional.
 - Indexes refer to the numbers shown in the displayed list.
 - Dates should follow the format `YYYY-MM-DD`.
 
@@ -176,6 +175,7 @@ TeamEventPro operates in two modes:
 - **Outside an event**: event-level commands such as `addevent`, `editevent`, `deleteevent`, `enter event`, `list`, `search`.
 - **Inside an event**: participant-level commands such as `add`, `edit`, `delete`, `assign`, `filter`, `checkin`, `view`, `statistics`, `list`, `search`, `leave event`.
 
+### RSVP vs Check-In
 TeamEventPro tracks two different participant statuses:
 
 - **RSVP status** shows whether a participant said they will attend: `yes`, `no`, or `pending`.
@@ -187,7 +187,6 @@ Most commands follow one of these shapes:
 - `COMMAND` with no arguments (e.g. `list`, `help`, `statistics`).
 - `COMMAND INDEX …` or `COMMAND KEYWORD INDEX` when an index is required (e.g. `delete 2`, `enter event 1`).
 - `COMMAND` plus **required** prefixes without brackets and **optional** prefixes in `[` `]` (see each command’s Format line).
-### RSVP vs Check-In
 
 ---
 
@@ -509,7 +508,6 @@ Used to close the application.
 ```
 exit
 ```
-![Command](images/exit/command.png)
 
 #### Successful Execution
 The application is exited.
