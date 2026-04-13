@@ -130,7 +130,7 @@ public class Person {
             return true;
         }
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
+                && otherPerson.getName().fullName.equalsIgnoreCase(getName().fullName)
                 && (otherPerson.getPhone().equals(getPhone())
                 || otherPerson.getEmail().equals(getEmail()));
     }

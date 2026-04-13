@@ -172,7 +172,7 @@ The command follows these steps when executed:
 2. `AddEventCommandParser` tokenises the input using `ArgumentTokenizer` with prefixes `n/`, `d/`, `l/`, and `desc/`, then constructs an `AddEventCommand` containing the new `Event` object.
 3. `AddEventCommand#execute()` checks that the app is not in event participant mode. If it is, a `CommandException` is thrown.
 4. `AddEventCommand#execute()` checks for duplicates via `Model#hasEvent()`. Two events are considered duplicates if they share the same name. If a duplicate is found, a `CommandException` is thrown.
-5. `Model#addEvent()` is called, adding the event to the `EventBook`. The `EventBook` is then persisted to `data/eventbook.json` via `JsonEventBookStorage`.
+5. `Model#addEvent()` is called, adding the event to the `EventBook`. The `EventBook` is then persisted to `data/eventbook.json` via `JsonEventBookStorage`. The filtered event list is then reset via `Model#updateFilteredEventList()` to ensure the UI reflects the full updated event list regardless of any prior search or filter.
 6. A `CommandResult` with the success message is returned.
 
 #### Design Considerations
@@ -200,13 +200,14 @@ The command follows these steps when executed:
 1. `AddressBookParser` receives the input and creates an `AddCommandParser`.
 2. `AddCommandParser` tokenises the input using `ArgumentTokenizer` and constructs a `Person` object from the parsed fields. Required fields are `n/`, `p/`, `e/`, and `a/`. Optional fields are `tm/`, `g/`, `r/`, and `t/`.
 3. `AddCommand#execute()` checks that the app is in event participant mode. If not, a `CommandException` is thrown.
-4. `AddCommand#execute()` checks for duplicates via `Model#hasPerson()`. Duplicate detection is handled by `Person#isSamePerson()`, which returns true if two persons share the same name **and** either the same phone number or the same email address.
+4. `AddCommand#execute()` checks for duplicates via `Model#hasPerson()`. Duplicate detection is handled by `Person#isSamePerson()`, which returns true if two persons share the same name (case-insensitive) **and** either the same phone number or the same email address.
 5. `Model#addPerson()` is called, adding the participant to the active event's `AddressBook`.
 6. A `CommandResult` with the formatted success message is returned using `Messages#format()`.
 
 Notable field constraints enforced at the model level:
 
 * `Name`: Must start with an alphanumeric character. Can contain alphanumeric characters (including Unicode letters for accented names), spaces, apostrophes, hyphens, and forward slashes. Maximum 100 characters.
+* `Phone`: Must contain only digits, between 3 and 17 digits long.
 * `RsvpStatus`: Must be `yes`, `no`, or `pending`. Defaults to `pending` if not provided.
 * `Team`: Must be alphanumeric and at most 15 characters.
 
@@ -292,7 +293,7 @@ The command follows these steps when executed:
 3. `EditCommand#execute()` checks that the app is in event participant mode. If not, a `CommandException` is thrown.
 4. The target `Person` is retrieved from the filtered person list using the provided index. If the index is out of bounds, a `CommandException` is thrown.
 5. A new `Person` object is constructed by combining the existing person's fields with the updated fields from `EditPersonDescriptor`.
-6. `EditCommand#execute()` checks that the edited person does not conflict with an existing participant via `Person#isSamePerson()`, using the same duplicate detection logic as `AddCommand`.
+6. `EditCommand#execute()` checks that the edited person does not conflict with any other existing participant in the full address book (not just the currently filtered list) via `Person#isSamePerson()`. Name comparison is case-insensitive. This prevents a duplicate from being introduced by editing fields one at a time across separate commands.
 7. `Model#setPerson()` replaces the old participant with the edited one in the active event's `AddressBook`.
 8. A `CommandResult` with the formatted success message is returned using `Messages#format()`.
 
