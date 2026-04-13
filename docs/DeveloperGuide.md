@@ -823,10 +823,10 @@ testers are expected to do more *exploratory* testing.
 
     1. Prerequisites: Must be inside an event participant view.
 
-    1. Test case: `leave`<br>
+    1. Test case: `leave event`<br>
        Expected: App returns to the global event view. Event list is shown.
 
-    1. Test case: `leave` while already in global event view<br>
+    1. Test case: `leave event` while already in global event view<br>
        Expected: Error message indicating not currently inside an event.
 
 ---
@@ -840,7 +840,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/311 Clementi Ave`<br>
        Expected: Participant added. Success message shows all participant fields.
 
-    1. Test case: `add n/Mary Jane p/91234567 e/mary@example.com a/Blk 30 Geylang St r/yes t/python tm/Alpha g/maryjane`<br>
+    1. Test case: `add n/Mary Jane p/91234567 e/mary@example.com a/Blk 30 Geylang St r/yes t/python team/Alpha g/maryjane`<br>
        Expected: Participant added with all optional fields. RSVP shown as `yes`, tag as `python`, team as `Alpha`.
 
     1. Test case: Adding a participant with the same name and same phone number as an existing participant.<br>
@@ -890,7 +890,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `edit 1 t/` (clear all tags)<br>
        Expected: All tags removed from the first participant.
 
-    1. Test case: `edit 1 tm/` (clear team)<br>
+    1. Test case: `edit 1 team/` (clear team)<br>
        Expected: Team field cleared for the first participant.
 
     1. Test case: `edit 1` (no fields specified)<br>

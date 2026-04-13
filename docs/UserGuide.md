@@ -558,7 +558,7 @@ add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 team
 Used to edit the details of an existing participant in the current event.
 
 #### Format
-`edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS [g/GITHUB_USERNAME] [r/RSVP_STATUS] [team/TEAM] [t/TAG]...`
+`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GITHUB_USERNAME] [r/RSVP_STATUS] [team/TEAM] [t/TAG]...`
 
 #### Example Usage
 ```
@@ -641,11 +641,11 @@ Used to assign a participant to a team.
 
 #### Example Usage
 ```
-assign 2 team/Alpha
+assign 2 team/Beta
 ```
 
 #### Successful Execution
-`Assigned [participant] to Team Alpha.`
+`Assigned Betsy Crowe to Team Beta.`
 
 ![Result](images/assign-team/result.png)
 
