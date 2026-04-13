@@ -358,7 +358,7 @@ switchtheme light
 #### Successful Execution
 `Switched to light mode.`
 
-![Result](images/switchmode/result.png)
+![Result](images/switchtheme/result.png)
 
 #### Notes
 - Can be used in any mode.
