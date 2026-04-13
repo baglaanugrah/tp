@@ -335,7 +335,7 @@ Outside an event: matching events are shown in the event list.
 
 Inside an event: matching participants are shown in the participant list.
 
-![Result inside an event](images/search/participantresult.png)
+![Result inside an event](images/search/participantresult.jpg)
 
 #### Notes
 - Can be used in any mode.
