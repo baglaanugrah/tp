@@ -16,15 +16,18 @@ You can reach us at the email `e1459283@u.nus.edu`
 <img src="images/baglaanugrah.png" width="200px">
 
 [[github](https://github.com/baglaanugrah)]
-* Role: Project Advisor
+* Worked on `checkin`, `enter event`, and `leave event` features.
+* Worked on the onboarding tutorial.
+* Worked on the documentation and other deliverables.
+
 ### Zhou Jinhao
 
 <img src="images/chulan142857.png" width="200px">
 
 [[github](http://github.com/chulan142857)]
 
-* Role: Developer
-* Responsibilities: UI
+* Worked on `assign`, `import`, and `export` features.
+* Worked on the documentation and other deliverables.
 
 ### Debopam Roy
 
@@ -32,16 +35,16 @@ You can reach us at the email `e1459283@u.nus.edu`
 
 [[github](https://github.com/DebopamRoy1)]
 
-* Role: Developer
-* Responsibilities: Data
+* Worked on `add`, `edit`, and `addevent` features.
+* Worked on the documentation and other deliverables.
 
 ### Han Shangda
 <img src="images/shangda777.png" width="200px">
 
 [[github](http://github.com/Shangda777)]
 
-* Role: Developer
-* Responsibilities: Develop
+* Worked on `search`, `editevent`,`deleteevent` and `switchtheme` features.
+* Worked on the documentation and other deliverables.
 
 ### Manya Agarwal
 
@@ -49,5 +52,6 @@ You can reach us at the email `e1459283@u.nus.edu`
 
 [[github](https://github.com/15-Manya)]
 
-* Role: Team Lead
-* Responsibilities: Responsible for overall project coordination.
+* Worked on `view`, `filter`, and `statistics` features.
+* Enhanced the UI of the App.
+* Worked on the documentation and other deliverables.
