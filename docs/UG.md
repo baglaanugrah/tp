@@ -194,25 +194,23 @@ Most commands follow one of these shapes:
 ## 3. Prefix Reference
 
 A prefix ends with `/` and starts a value; the value ends at the next prefix (after a space) or end of line (trimmed).
-Order is usually flexible. Spell each prefix exactly—`tm/` and `team/` differ on purpose.
 
 **Purpose** = why that data exists for organisers (not a full command list).
 
 | Prefix | Field | Purpose | Accepts                                                      | Does not accept |
 | --- | --- | --- |--------------------------------------------------------------| --- |
 | `n/` | Name | Name of the participant | Letters, digits, spaces, `-`, `/`, `'`, e.g. `n/John O'Neil` | Symbols like `@`, `#`, `!` |
-| `p/` | Phone | Phone Number of the participant | Digits only, 3-17 digits, e.g. `p/98765432`                  | Letters, `+`, spaces |
-| `e/` | Email | Email address of the participant | `local@domain`, ≤**64** chars                                | Bad format, too long |
-| `a/` | Address | Address of the participant | Text, ≤**100** chars, not blank/space-only                   | Too long, whitespace-only |
-| `tm/` | Team | Participant’s team when using **`add`** or **`edit`**. | Alphanumeric, 1–15 chars, e.g. `tm/Alpha7`                   | Spaces, symbols, hyphens |
-| `team/` | Team | Team when using **`assign`** or **`filter`** (different keyword from `tm/`). | Same rules as `tm/`, e.g. `team/Alpha7`                      | Wrong prefix (`tm/`), invalid name |
-| `g/` | GitHub username | Optional link to the participant's GitHub. | e.g. `g/johndoe`, `g/john-doe`                               | Spaces, bad hyphens |
-| `r/` | RSVP status | To allow the organisers get an idea of who intend to attend. | `yes`, `no`, `pending`                                       | e.g. `r/maybe` |
-| `t/` | Tag | Extra labels (skills, etc.); repeat `t/` for more. | Alphanumeric, e.g. `t/python t/ml`                           | Spaces/symbols in tag |
-| `d/` | Event date | When the event is. | `YYYY-MM-DD`                                                 | Other date shapes |
-| `l/` | Event location | Where it happens (optional). | Any text, e.g. `l/NUS COM1`                                  |  |
-| `desc/` | Event description | Longer blurb (optional). | Any text                                                     |  |
-| `checkin/` | Check-in filter | Filter by **arrived** yes/no, not RSVP. | `yes`, `no`                                                  | e.g. `checkin/maybe` |
+| `p/` | Phone | Phone Number of the participant | Digits only, 3-17 digits, e.g. `p/98765432` | Letters, `+`, spaces |
+| `e/` | Email | Email address of the participant | `local@domain`, ≤**64** chars | Bad format, too long |
+| `a/` | Address | Address of the participant | Text, ≤**100** chars, not blank/space-only | Too long, whitespace-only |
+| `team/` | Team | Team assigned to the participant | Alphanumeric team name, 1-15 chars, e.g. `team/Alpha7` | Spaces/symbols/too-long text, e.g. team/Alpha Team, team/Alpha-1 |
+| `g/` | GitHub username | Optional link to the participant's GitHub. | e.g. `g/johndoe`, `g/john-doe` | Spaces, bad hyphens |
+| `r/` | RSVP status | To allow the organisers get an idea of who intend to attend. | `yes`, `no`, `pending` | e.g. `r/maybe` |
+| `t/` | Tag | Extra labels (skills, etc.); repeat `t/` for more. | Alphanumeric, e.g. `t/python t/ml` | Spaces/symbols in tag |
+| `d/` | Event date | When the event is. | `YYYY-MM-DD` | Other date shapes |
+| `l/` | Event location | Where it happens (optional). | Any text, e.g. `l/NUS COM1` |  |
+| `desc/` | Event description | Longer blurb (optional). | Any text |  |
+| `checkin/` | Check-in filter | Filter by **arrived** yes/no, not RSVP. | `yes`, `no` | e.g. `checkin/maybe` |
 
 For required fields, an empty prefix value is invalid unless explicitly stated otherwise.
 Use the exact prefix expected by each command. Prefixes are not interchangeable.
@@ -535,7 +533,7 @@ See [Command Fundamentals](#command-fundamentals) for command syntax, prefix rul
 Used to add a participant to the currently entered event.
 
 #### Format
-`add n/NAME p/PHONE e/EMAIL a/ADDRESS [tm/TEAM] [g/GITHUB_USERNAME] [r/RSVP_STATUS] [t/TAG]...`
+`add n/NAME p/PHONE e/EMAIL a/ADDRESS [team/TEAM] [g/GITHUB_USERNAME] [r/RSVP_STATUS] [t/TAG]...`
 
 #### Example Usage
 ```
@@ -562,7 +560,7 @@ add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 team
 Used to edit the details of an existing participant in the current event.
 
 #### Format
-`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GITHUB_USERNAME] [r/RSVP_STATUS] [tm/TEAM] [t/TAG]...`
+`edit INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS [g/GITHUB_USERNAME] [r/RSVP_STATUS] [team/TEAM] [t/TAG]...`
 
 #### Example Usage
 ```
