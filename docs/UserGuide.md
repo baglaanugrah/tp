@@ -3,7 +3,7 @@ layout: default.md
 title: "User Guide"
 pageNav: 0
 ---
-
+//@@author 15-Manya
 # TeamEventPro User Guide
 
 ## Guide Contents
@@ -42,6 +42,7 @@ pageNav: 0
 
 ---
 
+//@@author baglaanugrah
 ## 1. About TeamEventPro
 
 TeamEventPro is a desktop application designed to help users manage events and participants efficiently.
@@ -133,6 +134,7 @@ For macOS-specific setup guidance, follow the prescribed JDK instructions in the
 
 ---
 
+//@@author 15-Manya
 ## 3. First-time setup
 
 - On first launch, complete the onboarding tutorial.
@@ -175,6 +177,7 @@ TeamEventPro operates in two modes:
 - **Outside an event**: event-level commands such as `addevent`, `editevent`, `deleteevent`, `enter event`, `list`, `search`.
 - **Inside an event**: participant-level commands such as `add`, `edit`, `delete`, `assign`, `filter`, `checkin`, `view`, `statistics`, `list`, `search`, `leave event`.
 
+//@@author baglaanugrah
 ### RSVP vs Check-In
 TeamEventPro tracks two different participant statuses:
 
@@ -183,6 +186,7 @@ TeamEventPro tracks two different participant statuses:
 
 These two statuses are different. For example, a participant may have RSVP = `yes` but Check-in = `no` if they said they would attend but have not arrived yet.
 
+//@@author 15-Manya
 Most commands follow one of these shapes:
 - `COMMAND` with no arguments (e.g. `list`, `help`, `statistics`).
 - `COMMAND INDEX …` or `COMMAND KEYWORD INDEX` when an index is required (e.g. `delete 2`, `enter event 1`).
@@ -242,7 +246,7 @@ The command applies to item `2` in the filtered list, not item `2` from an earli
 If a command fails with format errors, copy the exact `Format` block from the relevant command page and retry.
 
 ---
-
+//@@author baglaanugrah
 # Common Commands
 
 This page describes commands that are available in both app modes.
@@ -270,7 +274,7 @@ Opens a new window containing the User Guide link.
 - Can be used in any mode.
 
 ---
-
+//@@author Shangda777
 ## 2. List Command
 
 Used to list all events or all participants depending on the current mode.
@@ -365,7 +369,7 @@ switchtheme light
 - Only `dark` and `light` are valid values.
 
 ---
-
+//@@author DebopamRoy1
 # Event Commands
 
 This page describes commands that are primarily used while you are outside an event and managing the event list.
@@ -399,7 +403,7 @@ addevent n/Tech Meetup 2026 d/2026-06-15 l/NUS Techno Edge desc/Annual tech netw
 - Duplicate-looking event names may still be valid because related sessions can happen at different locations or at different times on the same day.
 
 ---
-
+//@@author Shangda777
 ## 2. Event Maintenance
 
 ### 2.1 Edit Event Command
@@ -464,7 +468,7 @@ deleteevent 1
 - Use this command carefully because the event's participant list is also removed.
 
 ---
-
+//@@author baglaanugrah
 ## 3. Event Navigation
 
 ### 3.1 Enter Event Command
@@ -514,7 +518,7 @@ The application is exited.
 - If you are currently inside an event, leave it first before exiting.
 
 ---
-
+//@@author DebopamRoy1
 # Participant Commands
 
 This page describes commands that are used while you are inside an event and managing that event's participants.
@@ -583,6 +587,7 @@ edit 1 p/91234567 e/johndoe@example.com
 - Clear the team by typing `team/` with nothing after it.
 - Editing a participant to match another participant's name (case-insensitive) and phone or email will be rejected as a duplicate.
 
+//@@author ChuLan142857
 ### 1.3 Delete Command
 <a id="cmd-delete"></a>
 
@@ -654,6 +659,7 @@ assign 2 team/Beta
 - Index must be a positive integer.
 - Team names must be alphanumeric and at most 15 characters.
 
+//@@author baglaanugrah
 ### 2.2 Check-In Command
 <a id="cmd-checkin"></a>
 
@@ -679,6 +685,7 @@ checkin 3
 
 ---
 
+//@@author 15-Manya
 ## 3. Search, Filtering, and Viewing
 
 ### 3.1 Filter Command
@@ -764,6 +771,7 @@ statistics
 
 ---
 
+//@@author ChuLan142857
 ## 4. Import and Export
 
 ### 4.1 Import Command
@@ -866,6 +874,7 @@ Default-path export result:
 
 ---
 
+//@@author baglaanugrah
 ## 5. Event Navigation
 
 ### 5.1 Leave Event Command
@@ -918,6 +927,7 @@ If a command fails, the command text may remain in the command box instead of cl
 This means users may need to manually edit or remove the failed command before trying again. This is mainly a
 usability issue, but it can be slightly inconvenient when testing multiple command variations in a row.
 
+//@@author ChuLan142857
 ## 4. A corrupted or unreadable `eventbook.json` can be overwritten on the next save
 
 TeamEventPro stores events and their participants together in `data/eventbook.json` (each event has a `participants`
@@ -950,6 +960,7 @@ GitHub looks wrong after load, **edit** the participant in TeamEventPro or resto
 file still contains the old text. Using **commands or CSV import** instead of raw JSON helps keep values within the
 documented rules.
 
+//@@author DebopamRoy1
 ## 6. Phone numbers do not accept country codes or symbols
 
 The `p/` field only allows **digits** (at least three), with **no** plus sign, spaces, or dashes. That keeps parsing and
